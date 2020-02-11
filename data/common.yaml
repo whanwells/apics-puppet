@@ -4,3 +4,5 @@ apics::group: "oracle"
 apics::manage_user: true
 apics::manage_group: true
 apics::basedir: "/opt/oracle"
+apics::installer_target: "/tmp/ApicsGatewayInstaller.zip"
+apics::installer_cleanup: false

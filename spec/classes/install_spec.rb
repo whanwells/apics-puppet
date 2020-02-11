@@ -10,7 +10,10 @@ describe 'apics::install' do
       'manage_user'            => true,
       'manage_group'           => true,
       'basedir'                => '/opt/oracle',
+      'installer_source'       => '/path/to/ApicsGatewayInstaller.zip',
+      'installer_target'       => '/tmp/ApicsGatewayInstaller.zip',
       'installer_extract_path' => '/opt/oracle/installer',
+      'installer_cleanup'      => false,
     }
   end
 
@@ -29,6 +32,17 @@ describe 'apics::install' do
             'mode'   => '0755',
           )
         end
+      end
+
+      it do
+        is_expected.to contain_archive('/tmp/ApicsGatewayInstaller.zip').with(
+          'source'       => '/path/to/ApicsGatewayInstaller.zip',
+          'extract'      => true,
+          'extract_path' => '/opt/oracle/installer',
+          'user'         => 'oracle',
+          'creates'      => '/opt/oracle/installer/APIGateway',
+          'cleanup'      => false,
+        )
       end
 
       context 'with manage_user => true' do

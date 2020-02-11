@@ -7,7 +7,10 @@ class apics::install(
   Boolean $manage_user,
   Boolean $manage_group,
   Stdlib::Unixpath $basedir,
+  Stdlib::Filesource $installer_source,
+  Stdlib::Filesource $installer_target,
   Stdlib::Unixpath $installer_extract_path,
+  Boolean $installer_cleanup,
 ) {
   if $manage_user {
     user { $user:
@@ -29,5 +32,16 @@ class apics::install(
       group  => $group,
       mode   => '0755',
     }
+  }
+
+  $archive_creates = "${installer_extract_path}/APIGateway"
+
+  archive { $installer_target:
+    source       => $installer_source,
+    extract      => true,
+    extract_path => $installer_extract_path,
+    user         => $user,
+    creates      => $archive_creates,
+    cleanup      => $installer_cleanup,
   }
 }
