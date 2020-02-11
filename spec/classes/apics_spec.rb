@@ -11,10 +11,12 @@ describe 'apics' do
 
       it do
         is_expected.to contain_class('apics::install').with(
-          'user'         => 'oracle',
-          'group'        => 'oracle',
-          'manage_user'  => true,
-          'manage_group' => true,
+          'user'                   => 'oracle',
+          'group'                  => 'oracle',
+          'manage_user'            => true,
+          'manage_group'           => true,
+          'basedir'                => '/opt/oracle',
+          'installer_extract_path' => '/opt/oracle/installer',
         )
       end
     end

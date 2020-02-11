@@ -18,17 +18,25 @@
 #
 # @param manage_group
 #   Whether or not the gateway node user will be managed. Default: `true`.
+#
+# @param basedir
+#   The root directory of the gateway node directory tree. Default: '/opt/oracle'.
 class apics(
   String $user,
   String $group,
   Boolean $manage_user,
   Boolean $manage_group,
+  Stdlib::Unixpath $basedir,
 ) {
+  $installer_extract_path = "${basedir}/installer"
+
   class { 'apics::install':
-    user         => $user,
-    group        => $group,
-    manage_user  => $manage_user,
-    manage_group => $manage_group,
+    user                   => $user,
+    group                  => $group,
+    manage_user            => $manage_user,
+    manage_group           => $manage_group,
+    basedir                => $basedir,
+    installer_extract_path => $installer_extract_path,
   }
 
   contain apics::install

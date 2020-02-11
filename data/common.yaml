@@ -3,3 +3,4 @@ apics::user: "oracle"
 apics::group: "oracle"
 apics::manage_user: true
 apics::manage_group: true
+apics::basedir: "/opt/oracle"

@@ -5,10 +5,12 @@ require 'spec_helper'
 describe 'apics::install' do
   let(:params) do
     {
-      'user'         => 'oracle',
-      'group'        => 'oracle',
-      'manage_user'  => true,
-      'manage_group' => true,
+      'user'                   => 'oracle',
+      'group'                  => 'oracle',
+      'manage_user'            => true,
+      'manage_group'           => true,
+      'basedir'                => '/opt/oracle',
+      'installer_extract_path' => '/opt/oracle/installer',
     }
   end
 
@@ -17,6 +19,17 @@ describe 'apics::install' do
       let(:facts) { os_facts }
 
       it { is_expected.to compile }
+
+      ['/opt/oracle', '/opt/oracle/installer'].each do |dir|
+        it do
+          is_expected.to contain_file(dir).with(
+            'ensure' => 'directory',
+            'owner'  => 'oracle',
+            'group'  => 'oracle',
+            'mode'   => '0755',
+          )
+        end
+      end
 
       context 'with manage_user => true' do
         let(:params) { super().merge('manage_user' => true) }
