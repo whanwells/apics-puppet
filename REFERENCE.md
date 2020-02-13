@@ -120,7 +120,9 @@ Data type: `String`
 
 The name of the gateway node.
 
-##### `gateway_node_decription`
+##### `gateway_node_description`
+
+Data type: `Optional[String]`
 
 The description of the gateway node. Default: `undef`.
 
@@ -134,7 +136,7 @@ The internal IP used for the configuration of the node domain. Default: `$facts[
 
 Data type: `Stdlib::Host`
 
-The public IP/hostname displayed in the management service for the node's URL. Default: `$facts['fqdn'].
+The public IP/hostname displayed in the management service for the node's URL. Default: `$facts['fqdn']`.
 
 ##### `gateway_execution_mode`
 
@@ -195,10 +197,4 @@ The HTTP port of the gateway node admin console. Default: 8001.
 Data type: `Stdlib::Port`
 
 The HTTP port of the gateway node admin console. Default: 9021.
-
-##### `gateway_node_description`
-
-Data type: `Optional[String]`
-
-
 

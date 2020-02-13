@@ -54,14 +54,14 @@
 # @param gateway_node_name
 #   The name of the gateway node.
 #
-# @param gateway_node_decription
+# @param gateway_node_description
 #   The description of the gateway node. Default: `undef`.
 #
 # @param listen_ip_address
 #   The internal IP used for the configuration of the node domain. Default: `$facts['ipaddress']`.
 #
 # @param publish_address
-#   The public IP/hostname displayed in the management service for the node's URL. Default: `$facts['fqdn'].
+#   The public IP/hostname displayed in the management service for the node's URL. Default: `$facts['fqdn']`.
 #
 # @param gateway_execution_mode
 #   The execution mode of the gateway node. Valid options: 'Development', 'Production'. Default: 'Development'.
