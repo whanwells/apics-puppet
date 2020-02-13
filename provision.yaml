@@ -1,0 +1,6 @@
+---
+default:
+  provisioner: docker
+  images:
+    - "litmusimage/centos:7"
+    - "litmusimage/oraclelinux:7"
