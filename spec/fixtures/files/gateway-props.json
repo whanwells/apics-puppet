@@ -1,0 +1,19 @@
+{
+  "managementServiceUrl": "https://test.apiplatform.ocp.example.com",
+  "idcsUrl": "https://idcs.example.com/oauth2/v1/token",
+  "requestScope": "https://apiplatform.example.com.apiplatform offline_access",
+  "gatewayNodeName": "Test Node",
+  "listenIpAddress": "172.16.254.254",
+  "publishAddress": "test.example.com",
+  "nodeInstallDir": "/opt/oracle/gateway",
+  "gatewayExecutionMode": "Development",
+  "heapSizeGb": "2",
+  "maximumHeapSizeGb": "4",
+  "gatewayMServerPort": "8011",
+  "gatewayMServerSSLPort": "9022",
+  "nodeManagerPort": "5556",
+  "coherencePort": "8088",
+  "gatewayDBPort": "1527",
+  "gatewayAdminServerPort": "8001",
+  "gatewayAdminServerSSLPort": "9021"
+}
