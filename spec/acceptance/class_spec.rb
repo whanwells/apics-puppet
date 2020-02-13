@@ -5,10 +5,6 @@ require 'spec_helper_acceptance'
 describe 'api_platform class' do
   let(:pp) do
     <<-MANIFEST
-      package { 'unzip':
-        ensure => present,
-      }
-
       class { 'apics':
         gateway_node_name      => 'Test Node',
         management_service_url => 'https://test.apiplatform.ocp.example.com',
