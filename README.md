@@ -1,9 +1,5 @@
 # apics
 
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
-
-The README template below provides a starting point with details about what information to include in your README.
-
 #### Table of Contents
 
 1. [Description](#description)
@@ -17,71 +13,88 @@ The README template below provides a starting point with details about what info
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your module does and what kind of problems users can solve with it.
-
-This should be a fairly short description helps the user decide if your module is what they want.
+The apics module installs and configures an Oracle API Platform gateway node.
 
 ## Setup
 
-### What apics affects **OPTIONAL**
+### Setup Requirements
 
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
+Users of this module are responsible for managing the `unzip` package, which is required to extract the gateway node installer file.
 
 ### Beginning with apics
 
-The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
+To install a gateway node with the minimum required parameters, declare the `apics` class:
+
+```puppet
+class { 'apics':
+  gateway_node_name      => 'Test Node',
+  management_service_url => 'https://test.apiplatform.ocp.example.com',
+  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
+  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
+  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
+}
+```
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your users how to use your module to solve problems, and be sure to include code examples. Include three to five examples of the most important or common tasks a user can accomplish with your module. Show users how to accomplish more complex tasks that involve different types, classes, and functions working in tandem.
+### Managing the gateway node user and group
+
+By default, the `apics` module will create a user and group named `oracle`.
+
+To specify a different name for either resource, use the `user` and `group` parameters:
+
+```puppet
+class { 'apics':
+  user                   => 'foo',
+  group                  => 'bar',
+  gateway_node_name      => 'Test Node',
+  management_service_url => 'https://test.apiplatform.ocp.example.com',
+  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
+  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
+  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
+}
+```
+
+To prevent Puppet from managing the user or group, use the `manage_user` and `manage_group` parameters:
+
+```puppet
+class { 'apics':
+  manage_user            => false,
+  manage_group           => false,
+  gateway_node_name      => 'Test Node',
+  management_service_url => 'https://test.apiplatform.ocp.example.com',
+  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
+  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
+  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
+}
+```
+
+### Using a network file share for the gateway node installer
+
+If the gateway node installer is located on a network file share, set the `installer_source` and `installer_target`
+parameters to the same value to prevent copying the file.
+
+```puppet
+class { 'apics':
+  gateway_node_name      => 'Test Node',
+  management_service_url => 'https://test.apiplatform.ocp.example.com',
+  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
+  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
+  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
+  installer_target       => '/path/to/ApicsGatewayInstaller.zip',
+}
+```
 
 ## Reference
 
-This section is deprecated. Instead, add reference information to your code as Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your module. For details on how to add code comments and generate documentation with Strings, see the Puppet Strings [documentation](https://puppet.com/docs/puppet/latest/puppet_strings.html) and [style guide](https://puppet.com/docs/puppet/latest/puppet_strings_style.html)
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the root of your module directory and list out each of your module's classes, defined types, facts, functions, Puppet tasks, task plans, and resource types and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-  * The data type, if applicable.
-  * A description of what the element does.
-  * Valid values, if the data type doesn't make it obvious.
-  * Default value, if any.
-
-For example:
-
-```
-### `pet::cat`
-
-#### Parameters
-
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
-```
+See [REFERENCE.md](REFERENCE.md).
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other warnings.
+For a list of supported operating systems, see [metadata.json](metadata.json).
+
+This module currently does not execute any of the [gateway node installer actions](https://docs.oracle.com/en/cloud/paas/api-platform-cloud/apfad/install-gateway-node.html#GUID-969667ED-75F2-4C4B-86BC-215D00AA8AEA).
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.
+Acceptance tests for this module leverage [puppet_litmus](https://github.com/puppetlabs/puppet_litmus).
