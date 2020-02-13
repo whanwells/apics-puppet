@@ -109,7 +109,7 @@ class apics(
   Optional[String] $gateway_node_description,
   Stdlib::IP::Address::V4 $listen_ip_address,
   Stdlib::Host $publish_address,
-  Enum['Development', 'Production'] $gateway_execution_mode,
+  Apics::ExecutionMode $gateway_execution_mode,
   Integer $heap_size_gb,
   Integer $maximum_heap_size_gb,
   Stdlib::Port $gateway_managed_server_port,
