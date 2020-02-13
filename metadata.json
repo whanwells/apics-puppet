@@ -5,6 +5,8 @@
   "summary": "Installs and configures an Oracle API Platform gateway node.",
   "license": "Apache-2.0",
   "source": "https://github.com/whanwells/apics-puppet",
+  "project_page": "https://github.com/whanwells/apics-puppet",
+  "issues_url": "https://github.com/whanwells/apics-puppet/issues",
   "dependencies": [
     {
       "name": "puppet/archive",
