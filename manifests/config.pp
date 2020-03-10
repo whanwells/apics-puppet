@@ -5,7 +5,7 @@ class apics::config(
   String $user,
   String $group,
   Stdlib::Unixpath $gateway_props_path,
-  Optional[Integer] $logical_gateway_id,
+  Integer $logical_gateway_id,
   Stdlib::HTTPSUrl $management_service_url,
   Stdlib::HTTPSUrl $idcs_url,
   String $request_scope,
@@ -25,14 +25,8 @@ class apics::config(
   Stdlib::Port $gateway_admin_server_port,
   Stdlib::Port $gateway_admin_server_ssl_port,
 ) {
-  # If logical_gateway_id is defined, turn it into a string
-  $_logical_gateway_id = $logical_gateway_id ? {
-    Integer => String($logical_gateway_id),
-    default => undef,
-  }
-
   $gateway_props = {
-    'logicalGatewayId'          => $_logical_gateway_id,
+    'logicalGatewayId'          => String($logical_gateway_id),
     'managementServiceUrl'      => $management_service_url,
     'idcsUrl'                   => $idcs_url,
     'requestScope'              => $request_scope,

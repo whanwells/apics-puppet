@@ -8,7 +8,7 @@ describe 'apics::config' do
       'user'                            => 'oracle',
       'group'                           => 'oracle',
       'gateway_props_path'              => '/opt/oracle/installer/gateway-props.json',
-      'logical_gateway_id'              => :undef,
+      'logical_gateway_id'              => 100,
       'management_service_url'          => 'https://test.apiplatform.ocp.example.com',
       'idcs_url'                        => 'https://idcs.example.com/oauth2/v1/token',
       'request_scope'                   => 'https://apiplatform.example.com.apiplatform offline_access',
@@ -44,12 +44,6 @@ describe 'apics::config' do
           'mode'    => '0440',
           'content' => file_fixture('gateway-props.json'),
         )
-      end
-
-      context 'with logical_gateway_id => 1' do
-        let(:params) { super().merge('logical_gateway_id' => 1) }
-
-        it { is_expected.to contain_file('/opt/oracle/installer/gateway-props.json').with_content(%r{"logicalGatewayId": "1"}) }
       end
 
       context "with gateway_node_description => 'Test Node'" do

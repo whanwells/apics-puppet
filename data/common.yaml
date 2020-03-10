@@ -6,7 +6,7 @@ apics::manage_group: true
 apics::basedir: "/opt/oracle"
 apics::installer_target: "/tmp/ApicsGatewayInstaller.zip"
 apics::installer_cleanup: false
-apics::logical_gateway_id: ~
+apics::logical_gateway_id: 100
 apics::gateway_node_description: ~
 apics::listen_ip_address: "%{facts.ipaddress}"
 apics::publish_address: "%{facts.fqdn}"

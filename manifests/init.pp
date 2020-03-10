@@ -40,7 +40,7 @@
 #   Whether or not the installer file will be removed after extraction. Default: `false`.
 #
 # @param logical_gateway_id
-#   The ID of the logical gateway the node registers to. Default: `undef`.
+#   The ID of the logical gateway the node registers to. Default: 100.
 #
 # @param management_service_url
 #   The URL of the management service instance that the node registers to.
@@ -101,7 +101,7 @@ class apics(
   Stdlib::Filesource $installer_source,
   Stdlib::Unixpath $installer_target,
   Boolean $installer_cleanup,
-  Optional[Integer] $logical_gateway_id,
+  Integer $logical_gateway_id,
   Stdlib::HTTPSUrl $management_service_url,
   Stdlib::HTTPSUrl $idcs_url,
   String $request_scope,

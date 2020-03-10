@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - `Apics::ExecutionMode` type alias
 
+**Changed**
+
+- Default `apics::logical_gateway_id` to 100.
+
 ## Release 0.1.0
 
 **Added**
