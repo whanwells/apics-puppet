@@ -41,6 +41,7 @@ describe 'apics' do
           'group'                           => 'oracle',
           'gateway_props_path'              => '/opt/oracle/installer/gateway-props.json',
           'logical_gateway_id'              => 100,
+          'logical_gateway'                 => nil,
           'management_service_url'          => 'https://test.apiplatform.ocp.example.com',
           'idcs_url'                        => 'https://idcs.example.com/oauth2/v1/token',
           'request_scope'                   => 'https://apiplatform.example.com.apiplatform offline_access',

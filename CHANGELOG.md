@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 **Added**
 
 - `Apics::ExecutionMode` type alias
+- `apics::logical_gateway` parameter for defining the name of the gateway the node will join.
 
 **Changed**
 

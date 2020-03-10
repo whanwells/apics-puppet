@@ -42,6 +42,9 @@
 # @param logical_gateway_id
 #   The ID of the logical gateway the node registers to. Default: 100.
 #
+# @param logical_gateway
+#   The name of the logical gateway the node registers to. Default: `undef`.
+#
 # @param management_service_url
 #   The URL of the management service instance that the node registers to.
 #
@@ -102,6 +105,7 @@ class apics(
   Stdlib::Unixpath $installer_target,
   Boolean $installer_cleanup,
   Integer $logical_gateway_id,
+  Optional[String] $logical_gateway,
   Stdlib::HTTPSUrl $management_service_url,
   Stdlib::HTTPSUrl $idcs_url,
   String $request_scope,
@@ -141,6 +145,7 @@ class apics(
     group                           => $group,
     gateway_props_path              => $gateway_props_path,
     logical_gateway_id              => $logical_gateway_id,
+    logical_gateway                 => $logical_gateway,
     management_service_url          => $management_service_url,
     idcs_url                        => $idcs_url,
     request_scope                   => $request_scope,
