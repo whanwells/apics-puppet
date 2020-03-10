@@ -87,11 +87,11 @@ class { 'apics':
 
 ## Reference
 
-See [REFERENCE.md](REFERENCE.md).
+See [REFERENCE.md](https://github.com/whanwells/apics-puppet/blob/master/REFERENCE.md).
 
 ## Limitations
 
-For a list of supported operating systems, see [metadata.json](metadata.json).
+For a list of supported operating systems, see [metadata.json](https://github.com/whanwells/apics-puppet/blob/master/metadata.json).
 
 This module currently does not execute any of the [gateway node installer actions](https://docs.oracle.com/en/cloud/paas/api-platform-cloud/apfad/install-gateway-node.html#GUID-969667ED-75F2-4C4B-86BC-215D00AA8AEA).
 
