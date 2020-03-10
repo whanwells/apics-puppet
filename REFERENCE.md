@@ -14,6 +14,10 @@ _Private Classes_
 * `apics::config`: Manages the gateway node configuration.
 * `apics::install`: Manages the gateway user, group, and installation files.
 
+**Data types**
+
+* [`Apics::ExecutionMode`](#apicsexecutionmode): 
+
 ## Classes
 
 ### apics
@@ -58,13 +62,13 @@ The name of the gateway node group. Default: 'oracle'.
 
 Data type: `Boolean`
 
-Whether or not the gateway node user will be managed. Default: `true`.
+Whether or not the gateway node user will be managed. Default: true.
 
 ##### `manage_group`
 
 Data type: `Boolean`
 
-Whether or not the gateway node user will be managed. Default: `true`.
+Whether or not the gateway node user will be managed. Default: true.
 
 ##### `basedir`
 
@@ -88,13 +92,19 @@ The location where the gateway node installer will be copied. Default: '/tmp/Api
 
 Data type: `Boolean`
 
-Whether or not the installer file will be removed after extraction. Default: `false`.
+Whether or not the installer file will be removed after extraction. Default: false.
 
 ##### `logical_gateway_id`
 
-Data type: `Optional[Integer]`
+Data type: `Integer`
 
-The ID of the logical gateway the node registers to. Default: `undef`.
+The ID of the logical gateway the node registers to. Default: 100.
+
+##### `logical_gateway`
+
+Data type: `Optional[String]`
+
+The name of the logical gateway the node registers to. Default: undef.
 
 ##### `management_service_url`
 
@@ -124,23 +134,23 @@ The name of the gateway node.
 
 Data type: `Optional[String]`
 
-The description of the gateway node. Default: `undef`.
+The description of the gateway node. Default: undef.
 
 ##### `listen_ip_address`
 
 Data type: `Stdlib::IP::Address::V4`
 
-The internal IP used for the configuration of the node domain. Default: `$facts['ipaddress']`.
+The internal IP used for the configuration of the node domain. Default: ipaddress fact.
 
 ##### `publish_address`
 
 Data type: `Stdlib::Host`
 
-The public IP/hostname displayed in the management service for the node's URL. Default: `$facts['fqdn']`.
+The public IP/hostname displayed in the management service for the node's URL. Default: fqdn fact.
 
 ##### `gateway_execution_mode`
 
-Data type: `Enum['Development', 'Production']`
+Data type: `Apics::ExecutionMode`
 
 The execution mode of the gateway node. Valid options: 'Development', 'Production'. Default: 'Development'.
 
@@ -197,4 +207,12 @@ The HTTP port of the gateway node admin console. Default: 8001.
 Data type: `Stdlib::Port`
 
 The HTTP port of the gateway node admin console. Default: 9021.
+
+## Data types
+
+### Apics::ExecutionMode
+
+The Apics::ExecutionMode data type.
+
+Alias of `Enum['Development', 'Production']`
 
