@@ -22,10 +22,10 @@
 #   The name of the gateway node group. Default: 'oracle'.
 #
 # @param manage_user
-#   Whether or not the gateway node user will be managed. Default: `true`.
+#   Whether or not the gateway node user will be managed. Default: true.
 #
 # @param manage_group
-#   Whether or not the gateway node user will be managed. Default: `true`.
+#   Whether or not the gateway node user will be managed. Default: true.
 #
 # @param basedir
 #   The root directory of the gateway node directory tree. Default: '/opt/oracle'.
@@ -37,13 +37,13 @@
 #   The location where the gateway node installer will be copied. Default: '/tmp/ApicsGatewayInstaller.zip'.
 #
 # @param installer_cleanup
-#   Whether or not the installer file will be removed after extraction. Default: `false`.
+#   Whether or not the installer file will be removed after extraction. Default: false.
 #
 # @param logical_gateway_id
 #   The ID of the logical gateway the node registers to. Default: 100.
 #
 # @param logical_gateway
-#   The name of the logical gateway the node registers to. Default: `undef`.
+#   The name of the logical gateway the node registers to. Default: undef.
 #
 # @param management_service_url
 #   The URL of the management service instance that the node registers to.
@@ -58,13 +58,13 @@
 #   The name of the gateway node.
 #
 # @param gateway_node_description
-#   The description of the gateway node. Default: `undef`.
+#   The description of the gateway node. Default: undef.
 #
 # @param listen_ip_address
-#   The internal IP used for the configuration of the node domain. Default: `$facts['ipaddress']`.
+#   The internal IP used for the configuration of the node domain. Default: ipaddress fact.
 #
 # @param publish_address
-#   The public IP/hostname displayed in the management service for the node's URL. Default: `$facts['fqdn']`.
+#   The public IP/hostname displayed in the management service for the node's URL. Default: fqdn fact.
 #
 # @param gateway_execution_mode
 #   The execution mode of the gateway node. Valid options: 'Development', 'Production'. Default: 'Development'.
