@@ -4,7 +4,6 @@
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with apics](#setup)
-    * [What apics affects](#what-apics-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with apics](#beginning-with-apics)
 3. [Usage - Configuration options and additional functionality](#usage)
@@ -39,7 +38,7 @@ class { 'apics':
 
 ### Managing the gateway node user and group
 
-By default, the `apics` module will create a user and group named `oracle`.
+By default, the `apics` module will create a user and group named _oracle_.
 
 To specify a different name for either resource, use the `user` and `group` parameters:
 
@@ -71,8 +70,7 @@ class { 'apics':
 
 ### Using a network file share for the gateway node installer
 
-If the gateway node installer is located on a network file share, set the `installer_source` and `installer_target`
-parameters to the same value to prevent copying the file.
+If the gateway node installer is located on a network file share, set the `installer_source` and `installer_target` parameters to the same value to prevent copying the file.
 
 ```puppet
 class { 'apics':
