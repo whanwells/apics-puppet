@@ -4,6 +4,9 @@ require 'singleton'
 require 'puppet_litmus'
 require 'support/file_helper'
 
+# Fix undefined method 'facts_from_node' error
+include PuppetLitmus
+
 class LitmusHelper
   include Singleton
   include PuppetLitmus
