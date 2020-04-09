@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.3.0
+
+**Added**
+
+- `apics::gateway_props` defined type
+- `Apics::GatewayProps` type alias
+
 ## Release 0.2.0
 
 **Added**

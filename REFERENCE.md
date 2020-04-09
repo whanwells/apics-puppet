@@ -14,9 +14,14 @@ _Private Classes_
 * `apics::config`: Manages the gateway node configuration.
 * `apics::install`: Manages the gateway user, group, and installation files.
 
+**Defined types**
+
+* [`apics::gateway_props`](#apicsgateway_props): Manages a gateway properties file.
+
 **Data types**
 
 * [`Apics::ExecutionMode`](#apicsexecutionmode): 
+* [`Apics::GatewayProps`](#apicsgatewayprops): 
 
 ## Classes
 
@@ -208,6 +213,74 @@ Data type: `Stdlib::Port`
 
 The HTTP port of the gateway node admin console. Default: 9021.
 
+## Defined types
+
+### apics::gateway_props
+
+Manages a gateway properties file.
+
+#### Examples
+
+##### 
+
+```puppet
+apics::gateway_props { '/tmp/gateway-props.json':
+  ensure => present,
+  owner  => 'oracle',
+  group  => 'oracle',
+  mode   => '0444',
+  props  => {
+    'nodeInstallDir'  => '/opt/oracle/gateway',
+    'listenIpAddress' => $facts['ipaddress'],
+    'publishAddress'  => $facts['fqdn'],
+  },
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `apics::gateway_props` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+Whether the file should exist. Valid options: 'present', 'absent'.
+
+##### `owner`
+
+Data type: `String`
+
+The owner of the file.
+
+##### `group`
+
+Data type: `String`
+
+The group which owns the file.
+
+##### `mode`
+
+Data type: `Stdlib::Filemode`
+
+The permissions of the file.
+
+##### `path`
+
+Data type: `Stdlib::Unixpath`
+
+The path to the file.
+
+Default value: $title
+
+##### `props`
+
+Data type: `Apics::GatewayProps`
+
+The properties to write to the file. All values will be converted to strings and undef values will be dropped.
+
+Default value: {}
+
 ## Data types
 
 ### Apics::ExecutionMode
@@ -215,4 +288,31 @@ The HTTP port of the gateway node admin console. Default: 9021.
 The Apics::ExecutionMode data type.
 
 Alias of `Enum['Development', 'Production']`
+
+### Apics::GatewayProps
+
+The Apics::GatewayProps data type.
+
+Alias of `Struct[{
+  logicalGatewayId          => Optional[Integer],
+  logicalGateway            => Optional[String],
+  managementServiceUrl      => Optional[Stdlib::HTTPSUrl],
+  idcsUrl                   => Optional[Stdlib::HTTPSUrl],
+  requestScope              => Optional[String],
+  gatewayNodeName           => Optional[String],
+  gatewayNodeDescription    => Optional[String],
+  listenIpAddress           => Optional[Stdlib::IP::Address::V4],
+  publishAddress            => Optional[Stdlib::Host],
+  nodeInstallDir            => Optional[Stdlib::Unixpath],
+  gatewayExecutionMode      => Optional[Apics::ExecutionMode],
+  heapSizeGb                => Optional[Integer],
+  maximumHeapSizeGb         => Optional[Integer],
+  gatewayMServerPort        => Optional[Stdlib::Port],
+  gatewayMServerSSLPort     => Optional[Stdlib::Port],
+  nodeManagerPort           => Optional[Stdlib::Port],
+  coherencePort             => Optional[Stdlib::Port],
+  gatewayDBPort             => Optional[Stdlib::Port],
+  gatewayAdminServerPort    => Optional[Stdlib::Port],
+  gatewayAdminServerSSLPort => Optional[Stdlib::Port],
+}]`
 
