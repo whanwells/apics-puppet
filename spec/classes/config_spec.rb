@@ -3,31 +3,20 @@
 require 'spec_helper'
 
 describe 'apics::config' do
+  let(:gateway_props) do
+    {
+      'nodeInstallDir'  => '/ot/oracle/gateway',
+      'listenIpAddress' => '172.16.254.254',
+      'publishAddress'  => 'test.example.com',
+    }
+  end
+
   let(:params) do
     {
-      'user'                            => 'oracle',
-      'group'                           => 'oracle',
-      'gateway_props_path'              => '/opt/oracle/installer/gateway-props.json',
-      'logical_gateway_id'              => 100,
-      'logical_gateway'                 => :undef,
-      'management_service_url'          => 'https://test.apiplatform.ocp.example.com',
-      'idcs_url'                        => 'https://idcs.example.com/oauth2/v1/token',
-      'request_scope'                   => 'https://apiplatform.example.com.apiplatform offline_access',
-      'gateway_node_name'               => 'Test Node',
-      'gateway_node_description'        => :undef,
-      'listen_ip_address'               => '172.16.254.254',
-      'publish_address'                 => 'test.example.com',
-      'node_install_dir'                => '/opt/oracle/gateway',
-      'gateway_execution_mode'          => 'Development',
-      'heap_size_gb'                    => 2,
-      'maximum_heap_size_gb'            => 4,
-      'gateway_managed_server_port'     => 8011,
-      'gateway_managed_server_ssl_port' => 9022,
-      'node_manager_port'               => 5556,
-      'coherence_port'                  => 8088,
-      'gateway_db_port'                 => 1527,
-      'gateway_admin_server_port'       => 8001,
-      'gateway_admin_server_ssl_port'   => 9021,
+      'user'               => 'oracle',
+      'group'              => 'oracle',
+      'gateway_props'      => gateway_props,
+      'gateway_props_path' => '/opt/oracle/installer/gateway-props.json',
     }
   end
 
@@ -38,25 +27,13 @@ describe 'apics::config' do
       it { is_expected.to compile }
 
       it do
-        is_expected.to contain_file('/opt/oracle/installer/gateway-props.json').with(
+        is_expected.to contain_apics__gateway_props('/opt/oracle/installer/gateway-props.json').with(
           'ensure'  => 'present',
           'owner'   => 'oracle',
           'group'   => 'oracle',
           'mode'    => '0440',
-          'content' => file_fixture('gateway-props.json'),
+          'props'   => gateway_props,
         )
-      end
-
-      context "with logical_gateway => 'Test Gateway'" do
-        let(:params) { super().merge('logical_gateway' => 'Test Gateway') }
-
-        it { is_expected.to contain_file('/opt/oracle/installer/gateway-props.json').with_content(%r{"logicalGateway": "Test Gateway"}) }
-      end
-
-      context "with gateway_node_description => 'Test Node'" do
-        let(:params) { super().merge('gateway_node_description' => 'Test Node') }
-
-        it { is_expected.to contain_file('/opt/oracle/installer/gateway-props.json').with_content(%r{"gatewayNodeDescription": "Test Node"}) }
       end
     end
   end

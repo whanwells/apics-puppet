@@ -128,6 +128,29 @@ class apics(
   $gateway_props_path = "${installer_extract_path}/gateway-props.json"
   $node_install_dir = "${basedir}/gateway"
 
+  $gateway_props = {
+    'logicalGatewayId'          => $logical_gateway_id,
+    'logicalGateway'            => $logical_gateway,
+    'managementServiceUrl'      => $management_service_url,
+    'idcsUrl'                   => $idcs_url,
+    'requestScope'              => $request_scope,
+    'gatewayNodeName'           => $gateway_node_name,
+    'gatewayNodeDescription'    => $gateway_node_description,
+    'listenIpAddress'           => $listen_ip_address,
+    'publishAddress'            => $publish_address,
+    'nodeInstallDir'            => $node_install_dir,
+    'gatewayExecutionMode'      => $gateway_execution_mode,
+    'heapSizeGb'                => $heap_size_gb,
+    'maximumHeapSizeGb'         => $maximum_heap_size_gb,
+    'gatewayMServerPort'        => $gateway_managed_server_port,
+    'gatewayMServerSSLPort'     => $gateway_managed_server_ssl_port,
+    'nodeManagerPort'           => $node_manager_port,
+    'coherencePort'             => $coherence_port,
+    'gatewayDBPort'             => $gateway_db_port,
+    'gatewayAdminServerPort'    => $gateway_admin_server_port,
+    'gatewayAdminServerSSLPort' => $gateway_admin_server_ssl_port,
+  }
+
   class { 'apics::install':
     user                   => $user,
     group                  => $group,
@@ -141,29 +164,10 @@ class apics(
   }
 
   class { 'apics::config':
-    user                            => $user,
-    group                           => $group,
-    gateway_props_path              => $gateway_props_path,
-    logical_gateway_id              => $logical_gateway_id,
-    logical_gateway                 => $logical_gateway,
-    management_service_url          => $management_service_url,
-    idcs_url                        => $idcs_url,
-    request_scope                   => $request_scope,
-    gateway_node_name               => $gateway_node_name,
-    gateway_node_description        => $gateway_node_description,
-    listen_ip_address               => $listen_ip_address,
-    publish_address                 => $publish_address,
-    node_install_dir                => $node_install_dir,
-    gateway_execution_mode          => $gateway_execution_mode,
-    heap_size_gb                    => $heap_size_gb,
-    maximum_heap_size_gb            => $maximum_heap_size_gb,
-    gateway_managed_server_port     => $gateway_managed_server_port,
-    gateway_managed_server_ssl_port => $gateway_managed_server_ssl_port,
-    node_manager_port               => $node_manager_port,
-    coherence_port                  => $coherence_port,
-    gateway_db_port                 => $gateway_db_port,
-    gateway_admin_server_port       => $gateway_admin_server_port,
-    gateway_admin_server_ssl_port   => $gateway_admin_server_ssl_port,
+    user               => $user,
+    group              => $group,
+    gateway_props      => $gateway_props,
+    gateway_props_path => $gateway_props_path,
   }
 
   contain apics::install
