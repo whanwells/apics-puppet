@@ -63,9 +63,6 @@ describe 'apics' do
       it do
         is_expected.to contain_apics__gateway_props('/opt/oracle/installer/gateway-props.json').with(
           'ensure'  => 'present',
-          'owner'   => 'oracle',
-          'group'   => 'oracle',
-          'mode'    => '0440',
           'props'   => gateway_props,
         )
       end

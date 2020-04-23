@@ -4,9 +4,6 @@
 class apics::config {
   apics::gateway_props { $apics::gateway_props_path:
     ensure => present,
-    owner  => $apics::user,
-    group  => $apics::group,
-    mode   => '0440',
     props  => {
       'logicalGatewayId'          => $apics::logical_gateway_id,
       'logicalGateway'            => $apics::logical_gateway,

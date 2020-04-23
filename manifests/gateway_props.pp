@@ -3,9 +3,6 @@
 # @example
 #   apics::gateway_props { '/tmp/gateway-props.json':
 #     ensure => present,
-#     owner  => 'oracle',
-#     group  => 'oracle',
-#     mode   => '0444',
 #     props  => {
 #       'nodeInstallDir'  => '/opt/oracle/gateway',
 #       'listenIpAddress' => $facts['ipaddress'],
@@ -16,36 +13,30 @@
 # @param ensure
 #   Whether the file should exist. Valid options: 'present', 'absent'.
 #
-# @param owner
-#   The owner of the file.
-#
-# @param group
-#   The group which owns the file.
-#
-# @param mode
-#   The permissions of the file.
-#
 # @param path
 #   The path to the file.
 #
 # @param props
-#   The properties to write to the file. All values will be converted to strings and undef values will be dropped.
+#   The properties to write to the file. All values will be converted to strings and undefs will be dropped.
 define apics::gateway_props (
   Enum['present', 'absent'] $ensure,
-  String $owner,
-  String $group,
-  Stdlib::Filemode $mode,
   Stdlib::Unixpath $path = $title,
   Apics::GatewayProps $props = {}
 ) {
+  if !defined(Class['apics']) {
+    fail('You must include the base apics class before using any of its defined resources')
+  }
+
   $entries = $props.filter |$k, $v| { $v =~ NotUndef }.map |$k, $v| { [$k, String($v)] }
 
   file { $path:
     ensure    => $ensure,
-    owner     => $owner,
-    group     => $group,
-    mode      => $mode,
+    owner     => $apics::user,
+    group     => $apics::group,
+    mode      => '0400',
     content   => to_json_pretty(Hash($entries)),
     show_diff => false,
   }
+
+  Class['apics::install'] -> Apics::Gateway_props[$title]
 }
