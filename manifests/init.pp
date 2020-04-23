@@ -124,51 +124,11 @@ class apics(
   Stdlib::Port $gateway_admin_server_port,
   Stdlib::Port $gateway_admin_server_ssl_port,
 ) {
-  $installer_extract_path = "${basedir}/installer"
-  $gateway_props_path = "${installer_extract_path}/gateway-props.json"
+  $installer_dir = "${basedir}/installer"
   $node_install_dir = "${basedir}/gateway"
 
-  $gateway_props = {
-    'logicalGatewayId'          => $logical_gateway_id,
-    'logicalGateway'            => $logical_gateway,
-    'managementServiceUrl'      => $management_service_url,
-    'idcsUrl'                   => $idcs_url,
-    'requestScope'              => $request_scope,
-    'gatewayNodeName'           => $gateway_node_name,
-    'gatewayNodeDescription'    => $gateway_node_description,
-    'listenIpAddress'           => $listen_ip_address,
-    'publishAddress'            => $publish_address,
-    'nodeInstallDir'            => $node_install_dir,
-    'gatewayExecutionMode'      => $gateway_execution_mode,
-    'heapSizeGb'                => $heap_size_gb,
-    'maximumHeapSizeGb'         => $maximum_heap_size_gb,
-    'gatewayMServerPort'        => $gateway_managed_server_port,
-    'gatewayMServerSSLPort'     => $gateway_managed_server_ssl_port,
-    'nodeManagerPort'           => $node_manager_port,
-    'coherencePort'             => $coherence_port,
-    'gatewayDBPort'             => $gateway_db_port,
-    'gatewayAdminServerPort'    => $gateway_admin_server_port,
-    'gatewayAdminServerSSLPort' => $gateway_admin_server_ssl_port,
-  }
-
-  class { 'apics::install':
-    user                   => $user,
-    group                  => $group,
-    manage_user            => $manage_user,
-    manage_group           => $manage_group,
-    basedir                => $basedir,
-    installer_source       => $installer_source,
-    installer_target       => $installer_target,
-    installer_extract_path => $installer_extract_path,
-    installer_cleanup      => $installer_cleanup,
-  }
-
-  class { 'apics::config':
-    user               => $user,
-    group              => $group,
-    gateway_props      => $gateway_props,
-    gateway_props_path => $gateway_props_path,
-  }
+  $installer = "${installer_dir}/APIGateway"
+  $gateway_props_path = "${installer_dir}/gateway-props.json"
 
   contain apics::install
   contain apics::config
