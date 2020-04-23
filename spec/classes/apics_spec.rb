@@ -5,31 +5,6 @@ require 'spec_helper'
 describe 'apics' do
   let(:node) { 'test.example.com' }
 
-  let(:gateway_props) do
-    {
-      'logicalGatewayId'          => 100,
-      'logicalGateway'            => nil,
-      'managementServiceUrl'      => nil,
-      'idcsUrl'                   => nil,
-      'requestScope'              => nil,
-      'gatewayNodeName'           => 'test',
-      'gatewayNodeDescription'    => nil,
-      'listenIpAddress'           => '172.16.254.254',
-      'publishAddress'            => 'test.example.com',
-      'nodeInstallDir'            => '/opt/oracle/gateway',
-      'gatewayExecutionMode'      => 'Development',
-      'heapSizeGb'                => 2,
-      'maximumHeapSizeGb'         => 4,
-      'gatewayMServerPort'        => 8011,
-      'gatewayMServerSSLPort'     => 9022,
-      'nodeManagerPort'           => 5556,
-      'coherencePort'             => 8088,
-      'gatewayDBPort'             => 1527,
-      'gatewayAdminServerPort'    => 8001,
-      'gatewayAdminServerSSLPort' => 9021,
-    }
-  end
-
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
@@ -63,7 +38,28 @@ describe 'apics' do
       it do
         is_expected.to contain_apics__gateway_props('/opt/oracle/installer/gateway-props.json').with(
           'ensure'  => 'present',
-          'props'   => gateway_props,
+          'props'   => {
+            'logicalGatewayId'          => 100,
+            'logicalGateway'            => nil,
+            'managementServiceUrl'      => nil,
+            'idcsUrl'                   => nil,
+            'requestScope'              => nil,
+            'gatewayNodeName'           => 'test',
+            'gatewayNodeDescription'    => nil,
+            'listenIpAddress'           => '172.16.254.254',
+            'publishAddress'            => 'test.example.com',
+            'nodeInstallDir'            => '/opt/oracle/gateway',
+            'gatewayExecutionMode'      => 'Development',
+            'heapSizeGb'                => 2,
+            'maximumHeapSizeGb'         => 4,
+            'gatewayMServerPort'        => 8011,
+            'gatewayMServerSSLPort'     => 9022,
+            'nodeManagerPort'           => 5556,
+            'coherencePort'             => 8088,
+            'gatewayDBPort'             => 1527,
+            'gatewayAdminServerPort'    => 8001,
+            'gatewayAdminServerSSLPort' => 9021,
+          },
         )
       end
 
@@ -79,7 +75,7 @@ describe 'apics' do
       end
 
       context 'with manage_user => false' do
-        let(:params) { { 'manage_user' => false }}
+        let(:params) { { 'manage_user' => false } }
 
         it { is_expected.not_to contain_user('oracle') }
       end
