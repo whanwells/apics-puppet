@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 
 - `apics::manage_unzip_package` parameter for automatically installing `unzip`
 
+**Changed**
+
+- Hide gateway prop file diffs
+
 ## Release 0.3.0
 
 **Added**

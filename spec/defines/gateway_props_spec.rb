@@ -23,11 +23,12 @@ describe 'apics::gateway_props' do
       context 'with minimum parameters' do
         it do
           is_expected.to contain_file('/tmp/gateway-props.json').with(
-            'ensure'  => 'present',
-            'owner'   => 'oracle',
-            'group'   => 'oracle',
-            'mode'    => '0444',
-            'content' => "{\n}\n",
+            'ensure'    => 'present',
+            'owner'     => 'oracle',
+            'group'     => 'oracle',
+            'mode'      => '0444',
+            'content'   => "{\n}\n",
+            'show_diff' => false,
           )
         end
       end

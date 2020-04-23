@@ -41,10 +41,11 @@ define apics::gateway_props (
   $entries = $props.filter |$k, $v| { $v =~ NotUndef }.map |$k, $v| { [$k, String($v)] }
 
   file { $path:
-    ensure  => $ensure,
-    owner   => $owner,
-    group   => $group,
-    mode    => $mode,
-    content => to_json_pretty(Hash($entries)),
+    ensure    => $ensure,
+    owner     => $owner,
+    group     => $group,
+    mode      => $mode,
+    content   => to_json_pretty(Hash($entries)),
+    show_diff => false,
   }
 }
