@@ -61,10 +61,10 @@
 #   The description of the gateway node. Default: undef.
 #
 # @param listen_ip_address
-#   The internal IP used for the configuration of the node domain. Default: ipaddress fact.
+#   The internal IP used for the configuration of the node domain. Default: 'ipaddress' fact.
 #
 # @param publish_address
-#   The public IP/hostname displayed in the management service for the node's URL. Default: fqdn fact.
+#   The public IP/hostname displayed in the management service for the node's URL. Default: 'fqdn' fact.
 #
 # @param gateway_execution_mode
 #   The execution mode of the gateway node. Valid options: 'Development', 'Production'. Default: 'Development'.
