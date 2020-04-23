@@ -25,6 +25,8 @@ class apics::config {
       'gatewayDBPort'             => $apics::gateway_db_port,
       'gatewayAdminServerPort'    => $apics::gateway_admin_server_port,
       'gatewayAdminServerSSLPort' => $apics::gateway_admin_server_ssl_port,
+      'gatewayadminName'          => $apics::gateway_admin_username,
+      'gatewayadminPassword'      => $apics::gateway_admin_password,
     },
   }
 }

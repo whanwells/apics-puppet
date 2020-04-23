@@ -92,6 +92,12 @@
 #
 # @param gateway_admin_server_ssl_port
 #   The HTTP port of the gateway node admin console. Default: 9021.
+#
+# @param gateway_admin_username
+#   The username of the WebLogic administrator. Default: 'weblogic'.
+#
+# @param gateway_admin_password
+#   The password of the Weblogic administrator. Default: 'Welcome1'.
 class apics(
   String $user,
   String $group,
@@ -121,6 +127,8 @@ class apics(
   Stdlib::Port $gateway_db_port,
   Stdlib::Port $gateway_admin_server_port,
   Stdlib::Port $gateway_admin_server_ssl_port,
+  String $gateway_admin_username,
+  String $gateway_admin_password,
 ) {
   $installer_dir = "${basedir}/installer"
   $node_install_dir = "${basedir}/gateway"

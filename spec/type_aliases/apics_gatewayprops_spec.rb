@@ -21,6 +21,8 @@ describe 'Apics::GatewayProps' do
   it { is_expected.to allow_value(gatewayDBPort: 1527) }
   it { is_expected.to allow_value(gatewayAdminServerPort: 8001) }
   it { is_expected.to allow_value(gatewayAdminServerSSLPort: 9021) }
+  it { is_expected.to allow_value(gatewayadminName: 'weblogic') }
+  it { is_expected.to allow_value(gatewayadminPassword: 'Welcome1') }
 
   it { is_expected.not_to allow_value(foo: 'bar') }
 end

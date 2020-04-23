@@ -19,4 +19,6 @@ type Apics::GatewayProps = Struct[{
   gatewayDBPort             => Optional[Stdlib::Port],
   gatewayAdminServerPort    => Optional[Stdlib::Port],
   gatewayAdminServerSSLPort => Optional[Stdlib::Port],
+  gatewayadminName          => Optional[String],
+  gatewayadminPassword      => Optional[String],
 }]

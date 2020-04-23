@@ -27,3 +27,5 @@ apics::coherence_port: 8088
 apics::gateway_db_port: 1527
 apics::gateway_admin_server_port: 8001
 apics::gateway_admin_server_ssl_port: 9021
+apics::gateway_admin_username: "weblogic"
+apics::gateway_admin_password: "Welcome1"

@@ -59,6 +59,8 @@ describe 'apics' do
             'gatewayDBPort'             => 1527,
             'gatewayAdminServerPort'    => 8001,
             'gatewayAdminServerSSLPort' => 9021,
+            'gatewayadminName'          => 'weblogic',
+            'gatewayadminPassword'      => 'Welcome1',
           },
         )
       end
