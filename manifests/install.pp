@@ -15,6 +15,12 @@ class apics::install {
     }
   }
 
+  if $apics::manage_unzip_package {
+    package { 'unzip':
+      ensure => present,
+    }
+  }
+
   [$apics::basedir, $apics::installer_dir].each |$dir| {
     file { $dir:
       ensure => directory,

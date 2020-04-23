@@ -21,6 +21,9 @@
 # @param manage_group
 #   Whether or not the gateway node user will be managed. Default: true.
 #
+# @param manage_unzip_package
+#   Whether the unzip package should be managed. Default: true.
+#
 # @param basedir
 #   The root directory of the gateway node directory tree. Default: '/opt/oracle'.
 #
@@ -94,6 +97,7 @@ class apics(
   String $group,
   Boolean $manage_user,
   Boolean $manage_group,
+  Boolean $manage_unzip_package,
   Stdlib::Unixpath $basedir,
   Stdlib::Filesource $installer_source,
   Stdlib::Unixpath $installer_target,

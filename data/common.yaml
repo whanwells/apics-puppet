@@ -3,6 +3,7 @@ apics::user: "oracle"
 apics::group: "oracle"
 apics::manage_user: true
 apics::manage_group: true
+apics::manage_unzip_package: true
 apics::basedir: "/opt/oracle"
 apics::installer_source: "/tmp/ApicsGatewayInstaller.zip"
 apics::installer_target: "/tmp/ApicsGatewayInstaller.zip"

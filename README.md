@@ -20,7 +20,6 @@ The apics module installs and configures an Oracle API Platform gateway node.
 
 Users of this module are responsible for:
 
-- Managing the `unzip` package, which is required to extract the gateway node installer file
 - Managing a [supported JDK](https://docs.oracle.com/en/cloud/paas/api-platform-cloud/apfad/system-requirements-premise-gateway-installation.html#GUID-45E866FB-A8E3-4DF3-A031-21ADBADC674D) and ensuring the `JAVA_HOME` environment variable is set
 
 ### Beginning with apics

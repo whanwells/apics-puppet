@@ -98,6 +98,18 @@ describe 'apics' do
 
         it { is_expected.not_to contain_group('oracle') }
       end
+
+      context 'with manage_unzip => true' do
+        let(:params) { { 'manage_unzip_package' => true } }
+
+        it { is_expected.to contain_package('unzip').with_ensure('present') }
+      end
+
+      context 'with manage_unzip => false' do
+        let(:params) { { 'manage_unzip_package' => false } }
+
+        it { is_expected.not_to contain_package('unzip') }
+      end
     end
   end
 end

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.4.0
+
+**Added**
+
+- `apics::manage_unzip_package` parameter for automatically installing `unzip`
+
 ## Release 0.3.0
 
 **Added**
