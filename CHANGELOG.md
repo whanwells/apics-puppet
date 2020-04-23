@@ -7,18 +7,16 @@ All notable changes to this project will be documented in this file.
 **Added**
 
 - `apics::gateway_props` defined type
-- `Apics::GatewayProps` type alias
 
 ## Release 0.2.0
 
 **Added**
 
-- `Apics::ExecutionMode` type alias
-- `apics::logical_gateway` parameter for defining the name of the gateway the node will join.
+- `apics::logical_gateway` parameter for defining the name of the logical gateway the node will join
 
 **Changed**
 
-- Default `apics::logical_gateway_id` to 100.
+- Default `apics::logical_gateway_id` to 100
 
 ## Release 0.1.0
 
