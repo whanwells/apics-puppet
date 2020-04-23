@@ -4,10 +4,15 @@ apics::group: "oracle"
 apics::manage_user: true
 apics::manage_group: true
 apics::basedir: "/opt/oracle"
+apics::installer_source: "/tmp/ApicsGatewayInstaller.zip"
 apics::installer_target: "/tmp/ApicsGatewayInstaller.zip"
 apics::installer_cleanup: false
 apics::logical_gateway_id: 100
 apics::logical_gateway: ~
+apics::management_service_url: ~
+apics::idcs_url: ~
+apics::request_scope: ~
+apics::gateway_node_name: "%{facts.hostname}"
 apics::gateway_node_description: ~
 apics::listen_ip_address: "%{facts.ipaddress}"
 apics::publish_address: "%{facts.fqdn}"

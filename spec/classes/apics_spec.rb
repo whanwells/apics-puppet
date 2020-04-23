@@ -5,24 +5,14 @@ require 'spec_helper'
 describe 'apics' do
   let(:node) { 'test.example.com' }
 
-  let(:params) do
-    {
-      'installer_source'       => '/path/to/ApicsGatewayInstaller.zip',
-      'management_service_url' => 'https://test.apiplatform.ocp.example.com',
-      'idcs_url'               => 'https://idcs.example.com/oauth2/v1/token',
-      'request_scope'          => 'https://apiplatform.example.com.apiplatform offline_access',
-      'gateway_node_name'      => 'Test Node',
-    }
-  end
-
   let(:gateway_props) do
     {
       'logicalGatewayId'          => 100,
       'logicalGateway'            => nil,
-      'managementServiceUrl'      => 'https://test.apiplatform.ocp.example.com',
-      'idcsUrl'                   => 'https://idcs.example.com/oauth2/v1/token',
-      'requestScope'              => 'https://apiplatform.example.com.apiplatform offline_access',
-      'gatewayNodeName'           => 'Test Node',
+      'managementServiceUrl'      => nil,
+      'idcsUrl'                   => nil,
+      'requestScope'              => nil,
+      'gatewayNodeName'           => 'test',
       'gatewayNodeDescription'    => nil,
       'listenIpAddress'           => '172.16.254.254',
       'publishAddress'            => 'test.example.com',
@@ -61,7 +51,7 @@ describe 'apics' do
 
       it do
         is_expected.to contain_archive('/tmp/ApicsGatewayInstaller.zip').with(
-          'source'       => '/path/to/ApicsGatewayInstaller.zip',
+          'source'       => '/tmp/ApicsGatewayInstaller.zip',
           'extract'      => true,
           'extract_path' => '/opt/oracle/installer',
           'user'         => 'oracle',
@@ -81,7 +71,7 @@ describe 'apics' do
       end
 
       context 'with manage_user => true' do
-        let(:params) { super().merge('manage_user' => true) }
+        let(:params) { { 'manage_user' => true } }
 
         it do
           is_expected.to contain_user('oracle').with(
@@ -92,19 +82,19 @@ describe 'apics' do
       end
 
       context 'with manage_user => false' do
-        let(:params) { super().merge('manage_user' => false) }
+        let(:params) { { 'manage_user' => false }}
 
         it { is_expected.not_to contain_user('oracle') }
       end
 
       context 'with manage_group => true' do
-        let(:params) { super().merge('manage_group' => true) }
+        let(:params) { { 'manage_group' => true } }
 
         it { is_expected.to contain_group('oracle').with_ensure('present') }
       end
 
       context 'with manage_group => false' do
-        let(:params) { super().merge('manage_group' => false) }
+        let(:params) { { 'manage_group' => false } }
 
         it { is_expected.not_to contain_group('oracle') }
       end

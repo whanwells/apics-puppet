@@ -7,13 +7,7 @@
 # - Configure the `gateway-props.json` file.
 #
 # @example
-#   class { 'apics':
-#     gateway_node_name      => 'Test Node',
-#     management_service_url => 'https://test.apiplatform.ocp.example.com',
-#     idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
-#     request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
-#     installer_source       => '/path/to/ApicsGatewayInstaller.zip',
-#   }
+#   include apics
 #
 # @param user
 #   The name of the gateway node user. Default: 'oracle'.
@@ -31,7 +25,7 @@
 #   The root directory of the gateway node directory tree. Default: '/opt/oracle'.
 #
 # @param installer_source
-#   The location of the gateway node installer.
+#   The location of the gateway node installer. Default: '/tmp/ApicsGatewayInstaller.zip'.
 #
 # @param installer_target
 #   The location where the gateway node installer will be copied. Default: '/tmp/ApicsGatewayInstaller.zip'.
@@ -46,16 +40,16 @@
 #   The name of the logical gateway the node registers to. Default: undef.
 #
 # @param management_service_url
-#   The URL of the management service instance that the node registers to.
+#   The URL of the management service instance that the node registers to. Default: undef.
 #
 # @param idcs_url
-#   The URL of the IDCS instance the node uses to communicate with the management service.
+#   The URL of the IDCS instance the node uses to communicate with the management service. Default: undef.
 #
 # @param request_scope
-#   The IDCS scope the node uses to communicate with the management service.
+#   The IDCS scope the node uses to communicate with the management service. Default: undef.
 #
 # @param gateway_node_name
-#   The name of the gateway node.
+#   The name of the gateway node. Default: 'hostname' fact.
 #
 # @param gateway_node_description
 #   The description of the gateway node. Default: undef.
@@ -106,9 +100,9 @@ class apics(
   Boolean $installer_cleanup,
   Integer $logical_gateway_id,
   Optional[String] $logical_gateway,
-  Stdlib::HTTPSUrl $management_service_url,
-  Stdlib::HTTPSUrl $idcs_url,
-  String $request_scope,
+  Optional[Stdlib::HTTPSUrl] $management_service_url,
+  Optional[Stdlib::HTTPSUrl] $idcs_url,
+  Optional[String] $request_scope,
   String $gateway_node_name,
   Optional[String] $gateway_node_description,
   Stdlib::IP::Address::V4 $listen_ip_address,
