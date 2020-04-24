@@ -98,6 +98,9 @@
 #
 # @param gateway_admin_password
 #   The password of the Weblogic administrator. Default: 'Welcome1'.
+#
+# @param java_home
+#   The path to the JAVA_HOME directory. Default: '/usr/java/default'.
 class apics(
   String $user,
   String $group,
@@ -129,6 +132,7 @@ class apics(
   Stdlib::Port $gateway_admin_server_ssl_port,
   String $gateway_admin_username,
   String $gateway_admin_password,
+  Stdlib::Unixpath $java_home,
 ) {
   $installer_dir = "${basedir}/installer"
   $node_install_dir = "${basedir}/gateway"
@@ -138,4 +142,5 @@ class apics(
 
   contain apics::install
   contain apics::config
+  contain apics::deploy
 }

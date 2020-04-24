@@ -12,6 +12,7 @@ describe 'apics' do
       it { is_expected.to compile }
       it { is_expected.to contain_class('apics::install') }
       it { is_expected.to contain_class('apics::config') }
+      it { is_expected.to contain_class('apics::deploy') }
 
       ['/opt/oracle', '/opt/oracle/installer'].each do |dir|
         it do
@@ -64,6 +65,10 @@ describe 'apics' do
           },
         )
       end
+
+      it { is_expected.to contain_apics__gateway_exec('deploy-install').with_action('install') }
+      it { is_expected.to contain_apics__gateway_exec('deploy-configure').with_action('configure') }
+      it { is_expected.to contain_apics__gateway_exec('deploy-start').with_action('start') }
 
       context 'with manage_user => true' do
         let(:params) { { 'manage_user' => true } }
