@@ -26,7 +26,7 @@ class apics::install {
       ensure => directory,
       owner  => $apics::user,
       group  => $apics::group,
-      mode   => '0755',
+      mode   => '0700',
     }
   }
 

@@ -37,7 +37,7 @@ describe 'api_platform class' do
       it { is_expected.to be_directory }
       it { is_expected.to be_owned_by('oracle') }
       it { is_expected.to be_grouped_into('oracle') }
-      it { is_expected.to be_mode(755) }
+      it { is_expected.to be_mode(700) }
     end
   end
 
@@ -49,7 +49,7 @@ describe 'api_platform class' do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by('oracle') }
     it { is_expected.to be_grouped_into('oracle') }
-    it { is_expected.to be_mode(440) }
+    it { is_expected.to be_mode(400) }
     its(:content) { is_expected.to match(gateway_props) }
   end
 end

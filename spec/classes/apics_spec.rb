@@ -20,7 +20,7 @@ describe 'apics' do
             'ensure' => 'directory',
             'owner'  => 'oracle',
             'group'  => 'oracle',
-            'mode'   => '0755',
+            'mode'   => '0700',
           )
         end
       end
