@@ -24,7 +24,7 @@ describe 'apics::gateway_exec' do
             'command'     => 'APIGateway -f gateway-props.json -a install',
             'user'        => 'oracle',
             'cwd'         => '/opt/oracle/installer',
-            'path'        => ['/bin', '/opt/oracle/installer'],
+            'path'        => ['/bin', '/usr/sbin', '/opt/oracle/installer'],
             'environment' => ['JAVA_HOME=/usr/java/default'],
           )
         end
@@ -60,7 +60,7 @@ describe 'apics::gateway_exec' do
             is_expected.to contain_exec('apics_gateway_exec_install').with(
               'command' => %r{-a start},
               'creates' => nil,
-              'unless'  => 'APIGateway -f gateway-props.json -a status | grep "gateway server: running"',
+              'unless'  => "ss -tnl4 | grep '172.16.254.254:9022'",
             )
           end
         end

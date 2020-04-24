@@ -19,7 +19,7 @@ define apics::gateway_exec (
   }
 
   $unless = $action ? {
-    'start' => 'APIGateway -f gateway-props.json -a status | grep "gateway server: running"',
+    'start' => "ss -tnl4 | grep '${apics::listen_ip_address}:${apics::gateway_managed_server_ssl_port}'",
     default => undef,
   }
 
@@ -27,7 +27,7 @@ define apics::gateway_exec (
     command     => "APIGateway -f gateway-props.json -a ${action}",
     user        => $apics::user,
     cwd         => $apics::installer_dir,
-    path        => ['/bin', $apics::installer_dir],
+    path        => ['/bin', '/usr/sbin', $apics::installer_dir],
     environment => ["JAVA_HOME=${apics::java_home}"],
     creates     => $creates,
     unless      => $unless,
