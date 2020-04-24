@@ -2,7 +2,7 @@
 #
 # @api private
 class apics::config {
-  apics::gateway_props { $apics::gateway_props_path:
+  apics::gateway_props { "${apics::installer_dir}/gateway-props.json":
     ensure => present,
     props  => {
       'logicalGatewayId'          => $apics::logical_gateway_id,

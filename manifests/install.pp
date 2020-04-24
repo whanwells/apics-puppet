@@ -35,7 +35,7 @@ class apics::install {
     extract      => true,
     extract_path => $apics::installer_dir,
     user         => $apics::user,
-    creates      => $apics::installer,
+    creates      => "${apics::installer_dir}/APIGateway",
     cleanup      => $apics::installer_cleanup,
   }
 }

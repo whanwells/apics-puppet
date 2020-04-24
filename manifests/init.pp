@@ -137,9 +137,6 @@ class apics(
   $installer_dir = "${basedir}/installer"
   $node_install_dir = "${basedir}/gateway"
 
-  $installer = "${installer_dir}/APIGateway"
-  $gateway_props_path = "${installer_dir}/gateway-props.json"
-
   contain apics::install
   contain apics::config
   contain apics::deploy
