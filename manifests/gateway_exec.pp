@@ -1,9 +1,10 @@
-# @summary A short summary of the purpose of this defined type.
-#
-# A description of what this defined type does
+# @summary Executes a gateway action.
 #
 # @example
 #   apics::gateway_exec { 'install': }
+#
+# @param action
+#   The gateway action to execute.
 define apics::gateway_exec (
   Apics::GatewayAction $action = $title,
 ) {

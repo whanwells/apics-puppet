@@ -1,13 +1,7 @@
 # @summary Manages an Oracle API Platform gateway node.
 #
-# When declared with the minimum required attributes, Puppet will:
-#
-# - Create the gateway node user and group.
-# - Download and extract the gateway node installer.
-# - Configure the `gateway-props.json` file.
-#
 # @example
-#   include apics
+#   class { 'apics': }
 #
 # @param user
 #   The name of the gateway node user. Default: 'oracle'.
