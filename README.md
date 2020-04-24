@@ -4,6 +4,7 @@
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with apics](#setup)
+    * [What apics affects](#what-apics-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with apics](#beginning-with-apics)
 3. [Usage - Configuration options and additional functionality](#usage)
@@ -15,6 +16,11 @@
 The apics module installs and configures an Oracle API Platform gateway node.
 
 ## Setup
+
+### What apics affects
+
+* The gateway user, group, directories, and files
+* The `unzip` package
 
 ### Setup Requirements
 
@@ -28,7 +34,6 @@ To install a gateway node with the minimum required parameters, declare the `api
 
 ```puppet
 class { 'apics':
-  gateway_node_name      => 'Test Node',
   management_service_url => 'https://test.apiplatform.ocp.example.com',
   idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
   request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
@@ -48,7 +53,6 @@ To specify a different name for either resource, use the `user` and `group` para
 class { 'apics':
   user                   => 'foo',
   group                  => 'bar',
-  gateway_node_name      => 'Test Node',
   management_service_url => 'https://test.apiplatform.ocp.example.com',
   idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
   request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
@@ -62,7 +66,6 @@ To prevent Puppet from managing the user or group, use the `manage_user` and `ma
 class { 'apics':
   manage_user            => false,
   manage_group           => false,
-  gateway_node_name      => 'Test Node',
   management_service_url => 'https://test.apiplatform.ocp.example.com',
   idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
   request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
@@ -76,7 +79,6 @@ If the gateway node installer is located on a network file share, set the `insta
 
 ```puppet
 class { 'apics':
-  gateway_node_name      => 'Test Node',
   management_service_url => 'https://test.apiplatform.ocp.example.com',
   idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
   request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
@@ -92,8 +94,6 @@ See [REFERENCE.md](https://github.com/whanwells/apics-puppet/blob/master/REFEREN
 ## Limitations
 
 For a list of supported operating systems, see [metadata.json](https://github.com/whanwells/apics-puppet/blob/master/metadata.json).
-
-This module currently does not execute any of the [gateway node installer actions](https://docs.oracle.com/en/cloud/paas/api-platform-cloud/apfad/install-gateway-node.html#GUID-969667ED-75F2-4C4B-86BC-215D00AA8AEA).
 
 ## Development
 
