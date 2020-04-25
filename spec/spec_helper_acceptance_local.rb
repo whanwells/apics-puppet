@@ -2,7 +2,10 @@
 
 require 'singleton'
 require 'puppet_litmus'
-require 'support/file_helper'
+
+['APICS_GATEWAY_INSTALLER_SOURCE', 'JDK_RPM_SOURCE', 'JDK_RPM_VERSION'].each do |name|
+  raise "Missing environment variable: #{name}" unless ENV[name]
+end
 
 # Fix undefined method 'facts_from_node' error
 include PuppetLitmus
@@ -13,14 +16,9 @@ class LitmusHelper
 end
 
 RSpec.configure do |c|
-  c.include FileHelper
-
   c.before(:suite) do
-    # Install unzip package
-    LitmusHelper.instance.apply_manifest("package { 'unzip': ensure => present }")
-
     # Upload gateway node installer
-    installer = File.join(FileHelper.fixture_path, 'ApicsGatewayInstaller.zip')
-    LitmusHelper.instance.bolt_upload_file(installer, '/tmp/ApicsGatewayInstaller.zip')
+    LitmusHelper.instance.bolt_upload_file(ENV['APICS_GATEWAY_INSTALLER_SOURCE'], '/tmp/ApicsGatewayInstaller.zip')
+    LitmusHelper.instance.bolt_upload_file(ENV['JDK_RPM_SOURCE'], '/tmp/jdk.rpm')
   end
 end

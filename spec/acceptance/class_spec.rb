@@ -3,24 +3,42 @@
 require 'spec_helper_acceptance'
 
 describe 'api_platform class' do
-  let(:pp) do
-    <<-MANIFEST
+  let(:manifest) do
+    <<-PP
       class { 'apics':
-        gateway_node_name      => 'Test Node',
-        management_service_url => 'https://test.apiplatform.ocp.example.com',
-        idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
-        request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
-        installer_source       => '/path/to/ApicsGatewayInstaller.zip',
-        listen_ip_address      => '172.16.254.254',
-        publish_address        => 'test.example.com',
+        heap_size_gb         => 1,
+        maximum_heap_size_gb => 1,
+        jdk_package_version  => '#{ENV['JDK_RPM_VERSION']}',
       }
-    MANIFEST
+    PP
   end
 
-  let(:gateway_props) { file_fixture('gateway-props.json') }
+let(:gateway_props) do
+  <<-EOF
+{
+  "logicalGatewayId": "100",
+  "gatewayNodeName": "#{host_inventory['hostname']}",
+  "listenIpAddress": "#{host_inventory['facter']['networking']['ip']}",
+  "publishAddress": "#{host_inventory['facter']['networking']['fqdn']}",
+  "nodeInstallDir": "/opt/oracle/gateway",
+  "gatewayExecutionMode": "Development",
+  "heapSizeGb": "1",
+  "maximumHeapSizeGb": "1",
+  "gatewayMServerPort": "8011",
+  "gatewayMServerSSLPort": "9022",
+  "nodeManagerPort": "5556",
+  "coherencePort": "8088",
+  "gatewayDBPort": "1527",
+  "gatewayAdminServerPort": "8001",
+  "gatewayAdminServerSSLPort": "9021",
+  "gatewayadminName": "weblogic",
+  "gatewayadminPassword": "Welcome1"
+}
+EOF
+    end
 
   it 'applies idempotently' do
-    idempotent_apply(pp)
+    idempotent_apply(manifest)
   end
 
   describe user('oracle') do
@@ -51,5 +69,19 @@ describe 'api_platform class' do
     it { is_expected.to be_grouped_into('oracle') }
     it { is_expected.to be_mode(400) }
     its(:content) { is_expected.to match(gateway_props) }
+  end
+
+  describe file('/opt/oracle/gateway/GATEWAY_HOME/installocsg.marker') do
+    it { is_expected.to be_file }
+  end
+
+  describe file('/opt/oracle/gateway/domain/gateway1/ocsgDomainCreation.marker') do
+    it { is_expected.to be_file }
+  end
+
+  [8011, 9022, 8001, 9021].each do |port|
+    describe port(port) do
+      it { should be_listening.with('tcp') }
+    end
   end
 end
