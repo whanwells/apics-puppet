@@ -5,7 +5,6 @@
 1. [Description](#description)
 2. [Setup - The basics of getting started with apics](#setup)
     * [What apics affects](#what-apics-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with apics](#beginning-with-apics)
 3. [Usage - Configuration options and additional functionality](#usage)
 4. [Limitations - OS compatibility, etc.](#limitations)
@@ -19,31 +18,43 @@ The apics module installs and configures an Oracle API Platform gateway node.
 
 ### What apics affects
 
-* The gateway user, group, directories, and files
-* The `unzip` package
+When declared with the minimum required attributes, Puppet will attempt to:
 
-### Setup Requirements
-
-Users of this module are responsible for:
-
-- Managing a [supported JDK](https://docs.oracle.com/en/cloud/paas/api-platform-cloud/apfad/system-requirements-premise-gateway-installation.html#GUID-45E866FB-A8E3-4DF3-A031-21ADBADC674D) and ensuring the `JAVA_HOME` environment variable is set
+* Install the `unzip` package and Oracle JDK
+* Create the gateway node user and group
+* Download and extract the gateway node installer
+* Configure the `gateway-props.json` file
+* Deploy and start the gateway node
 
 ### Beginning with apics
 
-To install a gateway node with the minimum required parameters, declare the `apics` class:
+To install a gateway node, declare the `apics` class:
 
 ```puppet
 class { 'apics':
-  management_service_url => 'https://test.apiplatform.ocp.example.com',
-  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
-  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
   installer_source       => '/path/to/ApicsGatewayInstaller.zip',
+  java_package_source    => '/path/to/jdk.rpm',
+  java_package_version   => '8u251',
+  gateway_admin_password => 'Welcome1',
 }
 ```
 
 ## Usage
 
-### Managing the gateway node user and group
+### Registering the gateway node
+
+To ensure the node can be registered with its logical gateway, set the appropriate parameters:
+
+```puppet
+class { 'apics':
+  logical_gateway_id     => 100,
+  management_service_url => 'https://test.apiplatform.ocp.example.com',
+  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
+  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
+}
+```
+
+### Managing the gateway user and group
 
 By default, the `apics` module will create a user and group named _oracle_.
 
@@ -51,12 +62,8 @@ To specify a different name for either resource, use the `user` and `group` para
 
 ```puppet
 class { 'apics':
-  user                   => 'foo',
-  group                  => 'bar',
-  management_service_url => 'https://test.apiplatform.ocp.example.com',
-  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
-  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
-  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
+  user  => 'foo',
+  group => 'bar',
 }
 ```
 
@@ -64,26 +71,8 @@ To prevent Puppet from managing the user or group, use the `manage_user` and `ma
 
 ```puppet
 class { 'apics':
-  manage_user            => false,
-  manage_group           => false,
-  management_service_url => 'https://test.apiplatform.ocp.example.com',
-  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
-  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
-  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
-}
-```
-
-### Using a network file share for the gateway node installer
-
-If the gateway node installer is located on a network file share, set the `installer_source` and `installer_target` parameters to the same value to prevent copying the file.
-
-```puppet
-class { 'apics':
-  management_service_url => 'https://test.apiplatform.ocp.example.com',
-  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
-  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
-  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
-  installer_target       => '/path/to/ApicsGatewayInstaller.zip',
+  manage_user  => false,
+  manage_group => false,
 }
 ```
 

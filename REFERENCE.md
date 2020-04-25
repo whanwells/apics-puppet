@@ -12,39 +12,32 @@ _Public Classes_
 _Private Classes_
 
 * `apics::config`: Manages the gateway node configuration.
-* `apics::install`: Manages the gateway user, group, and installation files.
+* `apics::deploy`: Manages the gateway node deployment.
+* `apics::install`: Manages the gateway user, group, dependencies, and files.
 
 **Defined types**
 
+* [`apics::gateway_exec`](#apicsgateway_exec): Executes a gateway action.
 * [`apics::gateway_props`](#apicsgateway_props): Manages a gateway properties file.
 
 **Data types**
 
 * [`Apics::ExecutionMode`](#apicsexecutionmode): 
+* [`Apics::GatewayAction`](#apicsgatewayaction): 
 * [`Apics::GatewayProps`](#apicsgatewayprops): 
 
 ## Classes
 
 ### apics
 
-When declared with the minimum required attributes, Puppet will:
-
-- Create the gateway node user and group.
-- Download and extract the gateway node installer.
-- Configure the `gateway-props.json` file.
+Manages an Oracle API Platform gateway node.
 
 #### Examples
 
 ##### 
 
 ```puppet
-class { 'apics':
-  gateway_node_name      => 'Test Node',
-  management_service_url => 'https://test.apiplatform.ocp.example.com',
-  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
-  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
-  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
-}
+class { 'apics': }
 ```
 
 #### Parameters
@@ -75,6 +68,12 @@ Data type: `Boolean`
 
 Whether or not the gateway node user will be managed. Default: true.
 
+##### `manage_unzip_package`
+
+Data type: `Boolean`
+
+Whether the unzip package should be managed. Default: true.
+
 ##### `basedir`
 
 Data type: `Stdlib::Unixpath`
@@ -85,7 +84,7 @@ The root directory of the gateway node directory tree. Default: '/opt/oracle'.
 
 Data type: `Stdlib::Filesource`
 
-The location of the gateway node installer.
+The location of the gateway node installer. Default: '/tmp/ApicsGatewayInstaller.zip'.
 
 ##### `installer_target`
 
@@ -113,27 +112,27 @@ The name of the logical gateway the node registers to. Default: undef.
 
 ##### `management_service_url`
 
-Data type: `Stdlib::HTTPSUrl`
+Data type: `Optional[Stdlib::HTTPSUrl]`
 
-The URL of the management service instance that the node registers to.
+The URL of the management service instance that the node registers to. Default: undef.
 
 ##### `idcs_url`
 
-Data type: `Stdlib::HTTPSUrl`
+Data type: `Optional[Stdlib::HTTPSUrl]`
 
-The URL of the IDCS instance the node uses to communicate with the management service.
+The URL of the IDCS instance the node uses to communicate with the management service. Default: undef.
 
 ##### `request_scope`
 
-Data type: `String`
+Data type: `Optional[String]`
 
-The IDCS scope the node uses to communicate with the management service.
+The IDCS scope the node uses to communicate with the management service. Default: undef.
 
 ##### `gateway_node_name`
 
 Data type: `String`
 
-The name of the gateway node.
+The name of the gateway node. Default: 'hostname' fact.
 
 ##### `gateway_node_description`
 
@@ -145,13 +144,13 @@ The description of the gateway node. Default: undef.
 
 Data type: `Stdlib::IP::Address::V4`
 
-The internal IP used for the configuration of the node domain. Default: ipaddress fact.
+The internal IP used for the configuration of the node domain. Default: 'ipaddress' fact.
 
 ##### `publish_address`
 
 Data type: `Stdlib::Host`
 
-The public IP/hostname displayed in the management service for the node's URL. Default: fqdn fact.
+The public IP/hostname displayed in the management service for the node's URL. Default: 'fqdn' fact.
 
 ##### `gateway_execution_mode`
 
@@ -213,7 +212,73 @@ Data type: `Stdlib::Port`
 
 The HTTP port of the gateway node admin console. Default: 9021.
 
+##### `gateway_admin_username`
+
+Data type: `String`
+
+The username of the WebLogic administrator. Default: 'weblogic'.
+
+##### `gateway_admin_password`
+
+Data type: `String`
+
+The password of the Weblogic administrator. Default: 'Welcome1'.
+
+##### `manage_jdk_package`
+
+Data type: `Boolean`
+
+Whether or not the JDK package will be managed. Default: true.
+
+##### `jdk_package_type`
+
+Data type: `Enum['rpm', 'tar.gz']`
+
+The type of installation package. Valid values: 'rpm', 'tar.gz'. Default: 'rpm'.
+
+##### `jdk_package_version`
+
+Data type: `Pattern[/\A8u\d+\z/]`
+
+The version of the JDK to install. Default: '8u251'.
+
+##### `jdk_package_source`
+
+Data type: `Stdlib::Filesource`
+
+The location of the JDK package. Default: '/tmp/jdk.rpm'.
+
+##### `java_home`
+
+Data type: `Stdlib::Unixpath`
+
+The path to the JAVA_HOME directory. Default: '/usr/java/default'.
+
 ## Defined types
+
+### apics::gateway_exec
+
+Executes a gateway action.
+
+#### Examples
+
+##### 
+
+```puppet
+apics::gateway_exec { 'install': }
+```
+
+#### Parameters
+
+The following parameters are available in the `apics::gateway_exec` defined type.
+
+##### `action`
+
+Data type: `Apics::GatewayAction`
+
+The gateway action to execute.
+
+Default value: $title
 
 ### apics::gateway_props
 
@@ -226,9 +291,6 @@ Manages a gateway properties file.
 ```puppet
 apics::gateway_props { '/tmp/gateway-props.json':
   ensure => present,
-  owner  => 'oracle',
-  group  => 'oracle',
-  mode   => '0444',
   props  => {
     'nodeInstallDir'  => '/opt/oracle/gateway',
     'listenIpAddress' => $facts['ipaddress'],
@@ -247,24 +309,6 @@ Data type: `Enum['present', 'absent']`
 
 Whether the file should exist. Valid options: 'present', 'absent'.
 
-##### `owner`
-
-Data type: `String`
-
-The owner of the file.
-
-##### `group`
-
-Data type: `String`
-
-The group which owns the file.
-
-##### `mode`
-
-Data type: `Stdlib::Filemode`
-
-The permissions of the file.
-
 ##### `path`
 
 Data type: `Stdlib::Unixpath`
@@ -277,7 +321,7 @@ Default value: $title
 
 Data type: `Apics::GatewayProps`
 
-The properties to write to the file. All values will be converted to strings and undef values will be dropped.
+The properties to write to the file. All values will be converted to strings and undefs will be dropped.
 
 Default value: {}
 
@@ -288,6 +332,12 @@ Default value: {}
 The Apics::ExecutionMode data type.
 
 Alias of `Enum['Development', 'Production']`
+
+### Apics::GatewayAction
+
+The Apics::GatewayAction data type.
+
+Alias of `Enum['install', 'configure', 'start']`
 
 ### Apics::GatewayProps
 
@@ -314,5 +364,7 @@ Alias of `Struct[{
   gatewayDBPort             => Optional[Stdlib::Port],
   gatewayAdminServerPort    => Optional[Stdlib::Port],
   gatewayAdminServerSSLPort => Optional[Stdlib::Port],
+  gatewayadminName          => Optional[String],
+  gatewayadminPassword      => Optional[String],
 }]`
 

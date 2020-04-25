@@ -6,8 +6,9 @@ All notable changes to this project will be documented in this file.
 
 **Added**
 
-- `apics::manage_unzip_package` parameter for automatically installing `unzip`
-- The gateway node will now be deployed and started
+- Management of the `unzip` package
+- Management of the Oracle JDK
+- Deployment of the gateway node
 
 **Changed**
 

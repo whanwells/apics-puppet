@@ -1,4 +1,4 @@
-# @summary Manages the gateway user, group, and installation files.
+# @summary Manages the gateway user, group, dependencies, and files.
 #
 # @api private
 class apics::install {
