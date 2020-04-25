@@ -93,6 +93,18 @@
 # @param gateway_admin_password
 #   The password of the Weblogic administrator. Default: 'Welcome1'.
 #
+# @param manage_jdk_package
+#   Whether or not the JDK package will be managed. Default: true.
+#
+# @param jdk_package_type
+#   The type of installation package. Valid values: 'rpm', 'tar.gz'. Default: 'rpm'.
+#
+# @param jdk_package_version
+#   The version of the JDK to install. Default: '8u251'.
+#
+# @param jdk_package_source
+#   The location of the JDK package. Default: '/tmp/jdk.rpm'.
+#
 # @param java_home
 #   The path to the JAVA_HOME directory. Default: '/usr/java/default'.
 class apics(
@@ -126,6 +138,10 @@ class apics(
   Stdlib::Port $gateway_admin_server_ssl_port,
   String $gateway_admin_username,
   String $gateway_admin_password,
+  Boolean $manage_jdk_package,
+  Enum['rpm', 'tar.gz'] $jdk_package_type,
+  Pattern[/\A8u\d+\z/] $jdk_package_version,
+  Stdlib::Filesource $jdk_package_source,
   Stdlib::Unixpath $java_home,
 ) {
   $installer_dir = "${basedir}/installer"

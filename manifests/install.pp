@@ -21,6 +21,17 @@ class apics::install {
     }
   }
 
+  if $apics::manage_jdk_package {
+    java::download { 'jdk':
+      ensure        => present,
+      java_se       => 'jdk',
+      version_major => $apics::jdk_package_version,
+      version_minor => 'b08',
+      package_type  => $apics::jdk_package_type,
+      url           => $apics::jdk_package_source,
+    }
+  }
+
   [$apics::basedir, $apics::installer_dir].each |$dir| {
     file { $dir:
       ensure => directory,

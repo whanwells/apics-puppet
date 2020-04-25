@@ -29,4 +29,8 @@ apics::gateway_admin_server_port: 8001
 apics::gateway_admin_server_ssl_port: 9021
 apics::gateway_admin_username: "weblogic"
 apics::gateway_admin_password: "Welcome1"
+apics::manage_jdk_package: true
+apics::jdk_package_type: "rpm"
+apics::jdk_package_source: "/tmp/jdk.rpm"
+apics::jdk_package_version: "8u251"
 apics::java_home: "/usr/java/default"

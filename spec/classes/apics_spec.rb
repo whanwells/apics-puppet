@@ -110,6 +110,27 @@ describe 'apics' do
 
         it { is_expected.not_to contain_package('unzip') }
       end
+
+      context 'with manage_jdk_package => true' do
+        let(:params) { { 'manage_jdk_package' => true } }
+
+        it do
+          is_expected.to contain_java__download('jdk').with(
+            'ensure'        => 'present',
+            'java_se'       => 'jdk',
+            'version_major' => '8u251',
+            'version_minor' => 'b08',
+            'package_type'  => 'rpm',
+            'url'           => '/tmp/jdk.rpm',
+          )
+        end
+      end
+
+      context 'with manage_jdk_package => false' do
+        let(:params) { { 'manage_jdk_package' => false } }
+
+        it { is_expected.not_to contain_java__download('jdk') }
+      end
     end
   end
 end
