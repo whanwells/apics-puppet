@@ -317,7 +317,7 @@ The path to the file.
 
 Default value: $title
 
-##### `props`
+##### `content`
 
 Data type: `Apics::GatewayProps`
 

@@ -16,18 +16,18 @@
 # @param path
 #   The path to the file.
 #
-# @param props
+# @param content
 #   The properties to write to the file. All values will be converted to strings and undefs will be dropped.
 define apics::gateway_props (
   Enum['present', 'absent'] $ensure,
   Stdlib::Unixpath $path = $title,
-  Apics::GatewayProps $props = {}
+  Apics::GatewayProps $content = {}
 ) {
   if !defined(Class['apics']) {
     fail('You must include the base apics class before using any of its defined resources')
   }
 
-  $entries = $props.filter |$k, $v| { $v =~ NotUndef }.map |$k, $v| { [$k, String($v)] }
+  $entries = $content.filter |$k, $v| { $v =~ NotUndef }.map |$k, $v| { [$k, String($v)] }
 
   file { $path:
     ensure    => $ensure,

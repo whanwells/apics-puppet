@@ -43,19 +43,19 @@ describe 'apics::gateway_props' do
         end
 
         context 'when prop value is string' do
-          let(:params) { super().merge('props' => { 'nodeInstallDir' => '/opt/oracle/gateway' }) }
+          let(:params) { super().merge('content' => { 'nodeInstallDir' => '/opt/oracle/gateway' }) }
 
           it { is_expected.to contain_file('/tmp/gateway-props.json').with_content(%r{"nodeInstallDir": "/opt/oracle/gateway"}) }
         end
 
         context 'when prop value is integer' do
-          let(:params) { super().merge('props' => { 'heapSizeGb' => 2 }) }
+          let(:params) { super().merge('content' => { 'heapSizeGb' => 2 }) }
 
           it { is_expected.to contain_file('/tmp/gateway-props.json').with_content(%r{"heapSizeGb": "2"}) }
         end
 
         context 'when prop value is undef' do
-          let(:params) { super().merge('props' => { 'logicalGateway' => :undef }) }
+          let(:params) { super().merge('content' => { 'logicalGateway' => :undef }) }
 
           it { is_expected.to contain_file('/tmp/gateway-props.json').with_content(%r{(?!logicalGateway)}) }
         end
