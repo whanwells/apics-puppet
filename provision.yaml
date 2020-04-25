@@ -1,6 +1,7 @@
 ---
 default:
-  provisioner: docker
+  provisioner: vagrant
   images:
-    - "litmusimage/centos:7"
-    - "litmusimage/oraclelinux:7"
+    - 'centos/7'
+  params:
+    vagrant_memory: 1536

@@ -1,4 +1,7 @@
 ---
+.gitignore:
+  paths:
+    - '.vagrant'
 .gitlab-ci.yml:
   delete: true
 appveyor.yml:
