@@ -107,6 +107,27 @@
 #
 # @param java_home
 #   The path to the JAVA_HOME directory. Default: '/usr/java/default'.
+#
+# @param join_logical_gateway
+#   Whether or not the node will join its logical gateway. Default: false.
+#
+# @param client_id
+#   The client ID of the management service instance that the node registers to. Default: undef.
+#
+# @param client_secret
+#   The client secret of the management service instance that the node registers to. Default: undef.
+#
+# @param gateway_manager_username
+#   The name of the user responsible for managing the gateway. Default: undef.
+#
+# @param gateway_manager_password
+#   The password of the gateay manager user. Default: undef.
+#
+# @param gateway_runtime_username
+#   The name of the user that downloads configuration from and uploads statistics to the gateway. Default: undef.
+#
+# @param gateway_runtime_password
+#   The password of the gateway runtime user. Default: undef.
 class apics(
   String $user,
   String $group,
@@ -143,6 +164,13 @@ class apics(
   Pattern[/\A8u\d+\z/] $jdk_package_version,
   Stdlib::Filesource $jdk_package_source,
   Stdlib::Unixpath $java_home,
+  Boolean $join_logical_gateway,
+  Optional[String] $client_id,
+  Optional[String] $client_secret,
+  Optional[String] $gateway_manager_username,
+  Optional[String] $gateway_manager_password,
+  Optional[String] $gateway_runtime_username,
+  Optional[String] $gateway_runtime_password,
 ) {
   $installer_dir = "${basedir}/installer"
   $node_install_dir = "${basedir}/gateway"

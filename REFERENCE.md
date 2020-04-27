@@ -254,6 +254,48 @@ Data type: `Stdlib::Unixpath`
 
 The path to the JAVA_HOME directory. Default: '/usr/java/default'.
 
+##### `join_logical_gateway`
+
+Data type: `Boolean`
+
+Whether or not the node will join its logical gateway. Default: false.
+
+##### `client_id`
+
+Data type: `Optional[String]`
+
+The client ID of the management service instance that the node registers to. Default: undef.
+
+##### `client_secret`
+
+Data type: `Optional[String]`
+
+The client secret of the management service instance that the node registers to. Default: undef.
+
+##### `gateway_manager_username`
+
+Data type: `Optional[String]`
+
+The name of the user responsible for managing the gateway. Default: undef.
+
+##### `gateway_manager_password`
+
+Data type: `Optional[String]`
+
+The password of the gateay manager user. Default: undef.
+
+##### `gateway_runtime_username`
+
+Data type: `Optional[String]`
+
+The name of the user that downloads configuration from and uploads statistics to the gateway. Default: undef.
+
+##### `gateway_runtime_password`
+
+Data type: `Optional[String]`
+
+The password of the gateway runtime user. Default: undef.
+
 ## Defined types
 
 ### apics::gateway_exec
@@ -337,7 +379,7 @@ Alias of `Enum['Development', 'Production']`
 
 The Apics::GatewayAction data type.
 
-Alias of `Enum['install', 'configure', 'start']`
+Alias of `Enum['install', 'configure', 'start', 'join']`
 
 ### Apics::GatewayProps
 
@@ -366,5 +408,11 @@ Alias of `Struct[{
   gatewayAdminServerSSLPort => Optional[Stdlib::Port],
   gatewayadminName          => Optional[String],
   gatewayadminPassword      => Optional[String],
+  clientId                  => Optional[String],
+  clientSecret              => Optional[String],
+  gatewayManagerUser        => Optional[String],
+  gatewayManagerPassword    => Optional[String],
+  gatewayRuntimeUser        => Optional[String],
+  gatewayRuntimePassword    => Optional[String],
 }]`
 

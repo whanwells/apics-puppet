@@ -62,6 +62,12 @@ describe 'apics' do
             'gatewayAdminServerSSLPort' => 9021,
             'gatewayadminName'          => 'weblogic',
             'gatewayadminPassword'      => 'Welcome1',
+            'clientId'                  => nil,
+            'clientSecret'              => nil,
+            'gatewayManagerUser'        => nil,
+            'gatewayManagerPassword'    => nil,
+            'gatewayRuntimeUser'        => nil,
+            'gatewayRuntimePassword'    => nil,
           },
         )
       end
@@ -130,6 +136,18 @@ describe 'apics' do
         let(:params) { { 'manage_jdk_package' => false } }
 
         it { is_expected.not_to contain_java__download('jdk') }
+      end
+
+      context 'with join_logical_gateway => true' do
+        let(:params) { { 'join_logical_gateway' => true } }
+
+        it { is_expected.to contain_apics__gateway_exec('deploy-join') }
+      end
+
+      context 'with join_logical_gateway => false' do
+        let(:params) { { 'join_logical_gateway' => false } }
+
+        it { is_expected.not_to contain_apics__gateway_exec('deploy-join') }
       end
     end
   end

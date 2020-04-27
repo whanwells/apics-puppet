@@ -13,4 +13,10 @@ class apics::deploy {
   apics::gateway_exec { 'deploy-start':
     action => 'start',
   }
+
+  if $apics::join_logical_gateway {
+    apics::gateway_exec { 'deploy-join':
+      action => 'join',
+    }
+  }
 }

@@ -20,6 +20,7 @@ define apics::gateway_exec (
 
   $unless = $action ? {
     'start' => "ss -tnl4 | grep '${apics::listen_ip_address}:${apics::gateway_managed_server_ssl_port}'",
+    'join'  => "cat ${apics::node_install_dir}/logs/status.log | grep 'join isSuccess: ok'",
     default => undef,
   }
 

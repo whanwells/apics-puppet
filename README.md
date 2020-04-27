@@ -41,16 +41,23 @@ class { 'apics':
 
 ## Usage
 
-### Registering the gateway node
+### Joining the logical gateway
 
-To ensure the node can be registered with its logical gateway, set the appropriate parameters:
+To ensure the node can join its logical gateway, set the appropriate parameters:
 
 ```puppet
 class { 'apics':
-  logical_gateway_id     => 100,
-  management_service_url => 'https://test.apiplatform.ocp.example.com',
-  idcs_url               => 'https://idcs.example.com/oauth2/v1/token',
-  request_scope          => 'https://apiplatform.example.com.apiplatform offline_access',
+  join_logical_gateway     => true,
+  logical_gateway_id       => 100,
+  management_service_url   => 'https://test.apiplatform.ocp.example.com',
+  idcs_url                 => 'https://idcs.example.com/oauth2/v1/token',
+  request_scope            => 'https://ABCDEFG12345.apiplatform.ocp.example.com.apiplatform offline_access',
+  client_id                => 'ABCDEFG12345_APPID',
+  client_secret            => 'abcdefg-12345',
+  gateway_manager_username => 'manager',
+  gateway_manager_password => 'password',
+  gateway_runtime_username => 'runtime',
+  gateway_runtime_password => 'password',
 }
 ```
 

@@ -3,8 +3,8 @@
 # @api private
 class apics::config {
   apics::gateway_props { "${apics::installer_dir}/gateway-props.json":
-    ensure => present,
-    props  => {
+    ensure  => present,
+    content => {
       'logicalGatewayId'          => $apics::logical_gateway_id,
       'logicalGateway'            => $apics::logical_gateway,
       'managementServiceUrl'      => $apics::management_service_url,
@@ -27,6 +27,12 @@ class apics::config {
       'gatewayAdminServerSSLPort' => $apics::gateway_admin_server_ssl_port,
       'gatewayadminName'          => $apics::gateway_admin_username,
       'gatewayadminPassword'      => $apics::gateway_admin_password,
+      'clientId'                  => $apics::client_id,
+      'clientSecret'              => $apics::client_secret,
+      'gatewayManagerUser'        => $apics::gateway_manager_username,
+      'gatewayManagerPassword'    => $apics::gateway_manager_password,
+      'gatewayRuntimeUser'        => $apics::gateway_runtime_username,
+      'gatewayRuntimePassword'    => $apics::gateway_runtime_password,
     },
   }
 }

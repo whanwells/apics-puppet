@@ -5,7 +5,7 @@ describe 'Apics::GatewayProps' do
   it { is_expected.to allow_value(logicalGateway: 'Test') }
   it { is_expected.to allow_value(managementServiceUrl: 'https://test.apiplatform.ocp.example.com') }
   it { is_expected.to allow_value(idcsUrl: 'https://idcs.example.com/oauth2/v1/token') }
-  it { is_expected.to allow_value(requestScope: 'https://apiplatform.example.com.apiplatform offline_access') }
+  it { is_expected.to allow_value(requestScope: 'https://ABCDEFG12345.apiplatform.example.com.apiplatform offline_access') }
   it { is_expected.to allow_value(gatewayNodeName: 'Test Node') }
   it { is_expected.to allow_value(gatewayNodeDescription: nil) }
   it { is_expected.to allow_value(listenIpAddress: '172.16.254.254') }
@@ -23,6 +23,12 @@ describe 'Apics::GatewayProps' do
   it { is_expected.to allow_value(gatewayAdminServerSSLPort: 9021) }
   it { is_expected.to allow_value(gatewayadminName: 'weblogic') }
   it { is_expected.to allow_value(gatewayadminPassword: 'Welcome1') }
+  it { is_expected.to allow_value(clientId: 'ABCDEFG12345_APPID')}
+  it { is_expected.to allow_value(clientSecret: 'abcdefg-12345')}
+  it { is_expected.to allow_value(gatewayManagerUser: 'manager') }
+  it { is_expected.to allow_value(gatewayManagerPassword: 'password') }
+  it { is_expected.to allow_value(gatewayRuntimeUser: 'runtime') }
+  it { is_expected.to allow_value(gatewayRuntimePassword: 'password') }
 
   it { is_expected.not_to allow_value(foo: 'bar') }
 end

@@ -21,4 +21,10 @@ type Apics::GatewayProps = Struct[{
   gatewayAdminServerSSLPort => Optional[Stdlib::Port],
   gatewayadminName          => Optional[String],
   gatewayadminPassword      => Optional[String],
+  clientId                  => Optional[String],
+  clientSecret              => Optional[String],
+  gatewayManagerUser        => Optional[String],
+  gatewayManagerPassword    => Optional[String],
+  gatewayRuntimeUser        => Optional[String],
+  gatewayRuntimePassword    => Optional[String],
 }]
