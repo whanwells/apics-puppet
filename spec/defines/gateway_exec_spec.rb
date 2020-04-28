@@ -26,6 +26,7 @@ describe 'apics::gateway_exec' do
             'cwd'         => '/opt/oracle/installer',
             'path'        => ['/bin', '/usr/sbin', '/opt/oracle/installer'],
             'environment' => ['JAVA_HOME=/usr/java/default'],
+            'timeout'     => 0,
           )
         end
 

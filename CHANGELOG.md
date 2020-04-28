@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.5.1
+
+**Changed**
+
+- Disable timeout in gateway `exec` resources
+
 ## Release 0.5.0
 
 **Added**

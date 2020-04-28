@@ -32,6 +32,7 @@ define apics::gateway_exec (
     environment => ["JAVA_HOME=${apics::java_home}"],
     creates     => $creates,
     unless      => $unless,
+    timeout     => 0,
   }
 
   Class['apics::config'] -> Apics::Gateway_exec[$title]
