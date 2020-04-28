@@ -5,8 +5,12 @@
 #
 # @param action
 #   The gateway action to execute.
+#
+# @param refreshonly
+#   Whether or not the command should only run when a dependent object is changed.
 define apics::gateway_exec (
   Apics::GatewayAction $action = $title,
+  Boolean $refreshonly = false,
 ) {
   if !defined(Class['apics']) {
     fail('You must include the base apics class before using any of its defined resources')
@@ -33,6 +37,7 @@ define apics::gateway_exec (
     creates     => $creates,
     unless      => $unless,
     timeout     => 0,
+    refreshonly => $refreshonly,
   }
 
   Class['apics::config'] -> Apics::Gateway_exec[$title]

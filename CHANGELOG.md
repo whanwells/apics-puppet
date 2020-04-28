@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.6.0
+
+**Added**
+
+- `apics::gateway_exec::refreshonly` parameter
+
 ## Release 0.5.1
 
 **Changed**

@@ -77,6 +77,18 @@ describe 'apics::gateway_exec' do
             )
           end
         end
+
+        context 'with refreshonly => true' do
+          let(:params) { { 'refreshonly' => true } }
+
+          it { is_expected.to contain_exec('apics_gateway_exec_install').with_refreshonly(true) }
+        end
+
+        context 'with refreshonly => false' do
+          let(:params) { { 'refreshonly' => false } }
+
+          it { is_expected.to contain_exec('apics_gateway_exec_install').with_refreshonly(false) }
+        end
       end
     end
   end

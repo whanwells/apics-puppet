@@ -322,6 +322,14 @@ The gateway action to execute.
 
 Default value: $title
 
+##### `refreshonly`
+
+Data type: `Boolean`
+
+Whether or not the command should only run when a dependent object is changed.
+
+Default value: `false`
+
 ### apics::gateway_props
 
 Manages a gateway properties file.
