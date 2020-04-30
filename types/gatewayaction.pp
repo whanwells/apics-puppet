@@ -1,1 +1,1 @@
-type Apics::GatewayAction = Enum['install', 'configure', 'start', 'create', 'join']
+type Apics::GatewayAction = Enum['install', 'configure', 'start', 'creategateway', 'join']

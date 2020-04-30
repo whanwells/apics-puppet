@@ -393,7 +393,7 @@ Alias of `Enum['Development', 'Production']`
 
 The Apics::GatewayAction data type.
 
-Alias of `Enum['install', 'configure', 'start', 'create', 'join']`
+Alias of `Enum['install', 'configure', 'start', 'creategateway', 'join']`
 
 ### Apics::GatewayProps
 

@@ -141,13 +141,13 @@ describe 'apics' do
       context 'with create_logical_gateway => true' do
         let(:params) { { 'create_logical_gateway' => true } }
 
-        it { is_expected.to contain_apics__gateway_exec('deploy-create') }
+        it { is_expected.to contain_apics__gateway_exec('deploy-creategateway') }
       end
 
       context 'with create_logical_gateway => false' do
         let(:params) { { 'create_logical_gateway' => false } }
 
-        it { is_expected.not_to contain_apics__gateway_exec('deploy-create') }
+        it { is_expected.not_to contain_apics__gateway_exec('deploy-creategateway') }
       end
 
       context 'with join_logical_gateway => true' do

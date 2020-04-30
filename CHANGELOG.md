@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.5.3
+
+**Fixed**
+
+- Change 'create' action to 'creategateway'
+- Only attempt to create a logical gateway when one hasn't been joined
+
 ## Release 0.5.2
 
 **Added**

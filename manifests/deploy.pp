@@ -15,8 +15,8 @@ class apics::deploy {
   }
 
   if $apics::create_logical_gateway {
-    apics::gateway_exec { 'deploy-create':
-      action => 'create',
+    apics::gateway_exec { 'deploy-creategateway':
+      action => 'creategateway',
     }
   }
 

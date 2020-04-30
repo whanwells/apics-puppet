@@ -66,6 +66,18 @@ describe 'apics::gateway_exec' do
           end
         end
 
+        context 'with action => creategateway' do
+          let(:params) { { 'action' => 'creategateway' } }
+
+          it do
+            is_expected.to contain_exec('apics_gateway_exec_install').with(
+              'command' => %r{-a creategateway},
+              'creates' => nil,
+              'unless'  => "cat /opt/oracle/gateway/logs/status.log | grep 'join isSuccess: ok'",
+            )
+          end
+        end
+
         context 'with action => join' do
           let(:params) { { 'action' => 'join' } }
 
