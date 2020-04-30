@@ -2,11 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.6.0
+## Release 0.5.2
 
 **Added**
 
 - `apics::gateway_exec::refreshonly` parameter
+
+**Fixed**
+
+- Allow logical gateways to be created before joining
 
 ## Release 0.5.1
 

@@ -108,6 +108,9 @@
 # @param java_home
 #   The path to the JAVA_HOME directory. Default: '/usr/java/default'.
 #
+# @param create_logical_gateway
+#   Whether or not to create the node's logical gateway. Default: false
+#
 # @param join_logical_gateway
 #   Whether or not the node will join its logical gateway. Default: false.
 #
@@ -164,6 +167,7 @@ class apics(
   Pattern[/\A8u\d+\z/] $jdk_package_version,
   Stdlib::Filesource $jdk_package_source,
   Stdlib::Unixpath $java_home,
+  Boolean $create_logical_gateway,
   Boolean $join_logical_gateway,
   Optional[String] $client_id,
   Optional[String] $client_secret,

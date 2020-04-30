@@ -254,6 +254,12 @@ Data type: `Stdlib::Unixpath`
 
 The path to the JAVA_HOME directory. Default: '/usr/java/default'.
 
+##### `create_logical_gateway`
+
+Data type: `Boolean`
+
+Whether or not to create the node's logical gateway. Default: false
+
 ##### `join_logical_gateway`
 
 Data type: `Boolean`
@@ -387,7 +393,7 @@ Alias of `Enum['Development', 'Production']`
 
 The Apics::GatewayAction data type.
 
-Alias of `Enum['install', 'configure', 'start', 'join']`
+Alias of `Enum['install', 'configure', 'start', 'create', 'join']`
 
 ### Apics::GatewayProps
 
