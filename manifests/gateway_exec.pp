@@ -28,8 +28,14 @@ define apics::gateway_exec (
     default              => undef,
   }
 
+  $key_values = $action ? {
+    'creategateway' => " -kv 'logicalGateway=${apics::logical_gateway}'",
+    'join'          => " -kv 'logicalGatewayId=${apics::logical_gateway_id}'",
+    default         => undef,
+  }
+
   exec { "apics_gateway_exec_${title}":
-    command     => "APIGateway -f gateway-props.json -a ${action}",
+    command     => "APIGateway -f gateway-props.json -a ${action}${key_values}",
     user        => $apics::user,
     cwd         => $apics::installer_dir,
     path        => ['/bin', '/usr/sbin', $apics::installer_dir],

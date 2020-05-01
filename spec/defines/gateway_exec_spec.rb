@@ -14,7 +14,13 @@ describe 'apics::gateway_exec' do
       end
 
       context 'when the base apics class is defined' do
-        let(:pre_condition) { 'include apics' }
+        let(:pre_condition) do
+          <<-PP
+            class { 'apics':
+              logical_gateway => 'Test',
+            }
+          PP
+        end
 
         it { is_expected.to compile }
         it { is_expected.to contain_apics__gateway_exec(title).that_requires('Class[apics::config]') }
@@ -71,7 +77,7 @@ describe 'apics::gateway_exec' do
 
           it do
             is_expected.to contain_exec('apics_gateway_exec_install').with(
-              'command' => %r{-a creategateway},
+              'command' => %r{-a creategateway -kv 'logicalGateway=Test'},
               'creates' => nil,
               'unless'  => "cat /opt/oracle/gateway/logs/status.log | grep 'join isSuccess: ok'",
             )
@@ -83,7 +89,7 @@ describe 'apics::gateway_exec' do
 
           it do
             is_expected.to contain_exec('apics_gateway_exec_install').with(
-              'command' => %r{-a join},
+              'command' => %r{-a join -kv 'logicalGatewayId=100'},
               'creates' => nil,
               'unless'  => "cat /opt/oracle/gateway/logs/status.log | grep 'join isSuccess: ok'",
             )
