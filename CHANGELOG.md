@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Release 0.5.3
 
+**Changed**
+
+- Don't write `apics::logical_gateway` or `apics::logical_gateway_id` to `gateway-props.json`
+
 **Fixed**
 
 - Change 'create' action to 'creategateway'

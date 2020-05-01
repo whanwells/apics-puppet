@@ -40,8 +40,6 @@ describe 'apics' do
         is_expected.to contain_apics__gateway_props('/opt/oracle/installer/gateway-props.json').with(
           'ensure'  => 'present',
           'content' => {
-            'logicalGatewayId'          => 100,
-            'logicalGateway'            => nil,
             'managementServiceUrl'      => nil,
             'idcsUrl'                   => nil,
             'requestScope'              => nil,

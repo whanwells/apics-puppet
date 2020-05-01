@@ -5,8 +5,6 @@ class apics::config {
   apics::gateway_props { "${apics::installer_dir}/gateway-props.json":
     ensure  => present,
     content => {
-      'logicalGatewayId'          => $apics::logical_gateway_id,
-      'logicalGateway'            => $apics::logical_gateway,
       'managementServiceUrl'      => $apics::management_service_url,
       'idcsUrl'                   => $apics::idcs_url,
       'requestScope'              => $apics::request_scope,
