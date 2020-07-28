@@ -16,7 +16,6 @@ describe 'api_platform class' do
 let(:gateway_props) do
   <<-EOF
 {
-  "logicalGatewayId": "100",
   "gatewayNodeName": "#{host_inventory['hostname']}",
   "listenIpAddress": "#{host_inventory['facter']['networking']['ip']}",
   "publishAddress": "#{host_inventory['facter']['networking']['fqdn']}",
