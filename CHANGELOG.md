@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+**Added**
+
+- `apics::gateway_installer` defined type
+
 **Changed**
 
 - Refactor `apics::gateway_props` defined type

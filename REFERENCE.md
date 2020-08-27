@@ -19,6 +19,7 @@
 ### Defined types
 
 * [`apics::gateway_exec`](#apicsgateway_exec): Executes a gateway action.
+* [`apics::gateway_installer`](#apicsgateway_installer): Manages a gateway node installer.
 * [`apics::gateway_props`](#apicsgateway_props): Manages a gateway properties file.
 
 ### Data types
@@ -333,6 +334,91 @@ Default value: `$title`
 Data type: `Boolean`
 
 Whether or not the command should only run when a dependent object is changed.
+
+Default value: ``false``
+
+### `apics::gateway_installer`
+
+Manages a gateway node installer.
+
+#### Examples
+
+##### 
+
+```puppet
+apics::gateway_installer { '/opt/installer':
+  ensure => present,
+  owner  => 'oracle',
+  group  => 'oracle',
+  source => '/tmp/ApicsGatewayInstaller.zip',
+}
+```
+
+#### Parameters
+
+The following parameters are available in the `apics::gateway_installer` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+Whether or not the installer should exist.
+
+##### `path`
+
+Data type: `Stdlib::Unixpath`
+
+The path of the installer directory.
+
+Default value: `$title`
+
+##### `owner`
+
+Data type: `String`
+
+The user that owns the installer directory.
+
+##### `group`
+
+Data type: `String`
+
+The group that owns the installer directory.
+
+##### `mode`
+
+Data type: `Stdlib::Filemode`
+
+The permissions of the installer directory.
+
+Default value: `'0700'`
+
+##### `source`
+
+Data type: `Stdlib::Filesource`
+
+The location of the gateway node installer archive.
+
+##### `target`
+
+Data type: `Stdlib::Unixpath`
+
+The location where the gateway node installer archive will be copied.
+
+Default value: `'/tmp/ApicsGatewayInstaller.zip'`
+
+##### `force`
+
+Data type: `Boolean`
+
+Whether or not an existing installer can be overwritten.
+
+Default value: ``false``
+
+##### `cleanup`
+
+Data type: `Boolean`
+
+Whether or not the installer archive will be removed after extraction.
 
 Default value: ``false``
 
