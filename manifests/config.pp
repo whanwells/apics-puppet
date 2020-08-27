@@ -4,6 +4,8 @@
 class apics::config {
   apics::gateway_props { "${apics::installer_dir}/gateway-props.json":
     ensure  => present,
+    owner   => $apics::user,
+    group   => $apics::group,
     content => {
       'managementServiceUrl'      => $apics::management_service_url,
       'idcsUrl'                   => $apics::idcs_url,

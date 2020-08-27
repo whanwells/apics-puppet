@@ -8,6 +8,8 @@ describe 'apics::gateway_props' do
   let(:params) do
     {
       'ensure' => 'present',
+      'owner'  => 'oracle',
+      'group'  => 'oracle',
     }
   end
 
@@ -15,50 +17,48 @@ describe 'apics::gateway_props' do
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      context 'when the base apics class is not defined' do
-        it { is_expected.to compile.and_raise_error(%r{You must include the base apics class before using any of its defined resources}) }
+      it { is_expected.to compile }
+
+      it do
+        is_expected.to contain_file(title).with(
+          'ensure'    => 'present',
+          'owner'     => 'oracle',
+          'group'     => 'oracle',
+          'mode'      => '0400',
+          'show_diff' => false,
+          'content'   => "{\n}\n",
+        )
       end
 
-      context 'when the base apics class is defined' do
-        let(:pre_condition) { 'include apics' }
+      context 'when path is provided' do
+        let(:params) { super().merge('path' => '/path/to/gateway-props.json') }
 
-        it { is_expected.to compile }
-        it { is_expected.to contain_apics__gateway_props(title).that_requires('Class[apics::install]') }
+        it { is_expected.not_to contain_file('/tmp/gateway-props.json') }
+        it { is_expected.to contain_file('/path/to/gateway-props.json') }
+      end
 
-        it do
-          is_expected.to contain_file('/tmp/gateway-props.json').with(
-            'ensure'    => 'present',
-            'owner'     => 'oracle',
-            'group'     => 'oracle',
-            'mode'      => '0400',
-            'content'   => "{\n}\n",
-            'show_diff' => false,
-          )
-        end
+      context 'when a property is a string' do
+        let(:params) { super().merge('content' => { 'foo' => 'bar' }) }
 
-        context 'with path defined' do
-          let(:params) { super().merge('path' => '/path/to/gateway-props.json') }
+        it { is_expected.to contain_file(title).with_content("{\n  \"foo\": \"bar\"\n}\n") }
+      end
 
-          it { is_expected.to contain_file('/path/to/gateway-props.json') }
-        end
+      context 'when a property is an integer' do
+        let(:params) { super().merge('content' => { 'foo' => 1 }) }
 
-        context 'when prop value is string' do
-          let(:params) { super().merge('content' => { 'nodeInstallDir' => '/opt/oracle/gateway' }) }
+        it { is_expected.to contain_file(title).with_content("{\n  \"foo\": \"1\"\n}\n") }
+      end
 
-          it { is_expected.to contain_file('/tmp/gateway-props.json').with_content(%r{"nodeInstallDir": "/opt/oracle/gateway"}) }
-        end
+      context 'when a property is undef' do
+        let(:params) { super().merge('content' => { 'foo' => :undef }) }
 
-        context 'when prop value is integer' do
-          let(:params) { super().merge('content' => { 'heapSizeGb' => 2 }) }
+        it { is_expected.to contain_file(title).with_content("{\n}\n") }
+      end
 
-          it { is_expected.to contain_file('/tmp/gateway-props.json').with_content(%r{"heapSizeGb": "2"}) }
-        end
+      context 'when a property is an array' do
+        let(:params) { super().merge('content' => { 'foo' => ['bar'] }) }
 
-        context 'when prop value is undef' do
-          let(:params) { super().merge('content' => { 'logicalGateway' => :undef }) }
-
-          it { is_expected.to contain_file('/tmp/gateway-props.json').with_content(%r{(?!logicalGateway)}) }
-        end
+        it { is_expected.to contain_file(title).with_content("{\n  \"foo\": [\n    \"bar\"\n  ]\n}\n") }
       end
     end
   end
