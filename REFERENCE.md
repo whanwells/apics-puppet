@@ -209,7 +209,7 @@ Additional properties to pass to the action
 
 ##### `loglevel`
 
-Data type: `String[1]`
+Data type: `Optional[String[1]]`
 
 The log level
 
