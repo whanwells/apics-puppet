@@ -1,0 +1,40 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Performs a gateway node action",
+  "input_method": "stdin",
+  "parameters": {
+    "java_home": {
+      "description": "The absolute path to the `JAVA_HOME` directory",
+      "type": "String[1]"
+    },
+    "path": {
+      "description": "The absolute path to the gateway installer directory",
+      "type": "String[1]"
+    },
+    "file": {
+      "description": "The name of the gateway property file",
+      "type": "String[1]"
+    },
+    "action": {
+      "description": "The action to perform",
+      "type": "String[1]"
+    },
+    "keyvalue": {
+      "description": "Additional properties to pass to the action",
+      "type": "Optional[Hash[String[1], Variant[String[1], Integer]]]"
+    },
+    "loglevel": {
+      "description": "The log level",
+      "type": "String[1]"
+    },
+    "timeout": {
+      "description": "The maximum time the command should take (in seconds)",
+      "type": "Optional[Integer[1]]",
+      "default": 300
+    }
+  },
+  "files": [
+    "ruby_task_helper/files/task_helper.rb"
+  ]
+}

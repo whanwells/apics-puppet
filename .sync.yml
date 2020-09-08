@@ -6,5 +6,9 @@
   delete: true
 appveyor.yml:
   delete: true
+Gemfile:
+  optional:
+    ':development':
+      - gem: 'bolt'
 spec/spec_helper.rb:
   mock_with: ':rspec'

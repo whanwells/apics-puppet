@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 **Added**
 
 - `apics::gateway_installer` defined type
+- `apics::gateway` task
 
 **Changed**
 

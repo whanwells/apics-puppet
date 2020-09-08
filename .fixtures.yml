@@ -5,6 +5,7 @@ fixtures:
   forge_modules:
     archive: "puppet/archive"
     java: "puppetlabs/java"
+    ruby_task_helper: "puppetlabs/ruby_task_helper"
     stdlib: "puppetlabs/stdlib"
   repositories:
     facts: "https://github.com/puppetlabs/puppetlabs-facts.git"

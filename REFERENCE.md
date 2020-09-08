@@ -27,6 +27,10 @@
 * [`Apics::ExecutionMode`](#apicsexecutionmode)
 * [`Apics::GatewayAction`](#apicsgatewayaction)
 
+### Tasks
+
+* [`gateway`](#gateway): Performs a gateway node action
+
 ## Classes
 
 ### `apics`
@@ -502,4 +506,56 @@ Alias of `Enum['Development', 'Production']`
 The Apics::GatewayAction data type.
 
 Alias of `Enum['install', 'configure', 'start', 'creategateway', 'join']`
+
+## Tasks
+
+### `gateway`
+
+Performs a gateway node action
+
+**Supports noop?** false
+
+#### Parameters
+
+##### `java_home`
+
+Data type: `String[1]`
+
+The absolute path to the `JAVA_HOME` directory
+
+##### `path`
+
+Data type: `String[1]`
+
+The absolute path to the gateway installer directory
+
+##### `file`
+
+Data type: `String[1]`
+
+The name of the gateway property file
+
+##### `action`
+
+Data type: `String[1]`
+
+The action to perform
+
+##### `keyvalue`
+
+Data type: `Optional[Hash[String[1], Variant[String[1], Integer]]]`
+
+Additional properties to pass to the action
+
+##### `loglevel`
+
+Data type: `String[1]`
+
+The log level
+
+##### `timeout`
+
+Data type: `Optional[Integer[1]]`
+
+The maximum time the command should take (in seconds)
 
