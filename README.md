@@ -1,86 +1,65 @@
 # apics
 
-#### Table of Contents
+## Table of Contents
 
 1. [Description](#description)
-2. [Setup - The basics of getting started with apics](#setup)
-    * [What apics affects](#what-apics-affects)
+1. [Setup - The basics of getting started with apics](#setup)
     * [Beginning with apics](#beginning-with-apics)
-3. [Usage - Configuration options and additional functionality](#usage)
-4. [Limitations - OS compatibility, etc.](#limitations)
-5. [Development - Guide for contributing to the module](#development)
+1. [Usage - Configuration options and additional functionality](#usage)
+1. [Limitations - OS compatibility, etc.](#limitations)
+1. [Development - Guide for contributing to the module](#development)
 
 ## Description
 
-The apics module installs and configures an Oracle API Platform gateway node.
+The apics module provides types and tasks for managing an Oracle API Platform
+gateway node.
 
 ## Setup
 
-### What apics affects
+### Setup Requirements
 
-When declared with the minimum required attributes, Puppet will attempt to:
+Users of this module are responsible for the following prerequisites:
 
-* Install the `unzip` package and Oracle JDK
-* Create the gateway node user and group
-* Download and extract the gateway node installer
-* Configure the `gateway-props.json` file
-* Deploy and start the gateway node
+* Installing the `unzip` package
+* Installing a [certified Oracle JDK](https://docs.oracle.com/en/cloud/paas/api-platform-cloud/apfad/system-requirements-premise-gateway-installation.html#GUID-45E866FB-A8E3-4DF3-A031-21ADBADC674D)
+* Creating the gateway node user and group
 
 ### Beginning with apics
 
-To install a gateway node, declare the `apics` class:
+Extract the gateway node installer.
 
 ```puppet
-class { 'apics':
-  installer_source       => '/path/to/ApicsGatewayInstaller.zip',
-  java_package_source    => '/path/to/jdk.rpm',
-  java_package_version   => '8u251',
-  gateway_admin_password => 'Welcome1',
+apics::gateway_installer { '/opt/installer':
+  ensure => present,
+  owner  => 'oracle',
+  group  => 'oracle',
+  source => '/tmp/ApicsGatewayInstaller.zip',
+}
+```
+
+Create the gateway property file in the installer directory.
+
+```puppet
+apics::gateway_props { '/opt/installer/gateway-props.json':
+  ensure  => present,
+  owner   => 'oracle',
+  group   => 'oracle',
+  content => {
+    'nodeInstallDir'  => '/opt/oracle/gateway',
+    'listenIpAddress' => $facts['ipaddress'],
+    # ...
+  },
 }
 ```
 
 ## Usage
 
-### Joining the logical gateway
+### Executing gateway actions
 
-To ensure the node can join its logical gateway, set the appropriate parameters:
+Use the `apics::gateway` task to execute gateway actions.
 
-```puppet
-class { 'apics':
-  join_logical_gateway     => true,
-  logical_gateway_id       => 100,
-  management_service_url   => 'https://test.apiplatform.ocp.example.com',
-  idcs_url                 => 'https://idcs.example.com/oauth2/v1/token',
-  request_scope            => 'https://ABCDEFG12345.apiplatform.ocp.example.com.apiplatform offline_access',
-  client_id                => 'ABCDEFG12345_APPID',
-  client_secret            => 'abcdefg-12345',
-  gateway_manager_username => 'manager',
-  gateway_manager_password => 'password',
-  gateway_runtime_username => 'runtime',
-  gateway_runtime_password => 'password',
-}
-```
-
-### Managing the gateway user and group
-
-By default, the `apics` module will create a user and group named _oracle_.
-
-To specify a different name for either resource, use the `user` and `group` parameters:
-
-```puppet
-class { 'apics':
-  user  => 'foo',
-  group => 'bar',
-}
-```
-
-To prevent Puppet from managing the user or group, use the `manage_user` and `manage_group` parameters:
-
-```puppet
-class { 'apics':
-  manage_user  => false,
-  manage_group => false,
-}
+```bash
+bolt task run apics::gateway java_home=/usr/java/default path=/opt/installer file=gateway-props.json action=status
 ```
 
 ## Reference
