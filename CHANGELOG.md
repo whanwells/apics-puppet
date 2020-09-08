@@ -13,6 +13,10 @@ All notable changes to this project will be documented in this file.
 
 - Refactor `apics::gateway_props` defined type
 
+**Removed**
+
+- `apics` class
+
 ## Release 0.5.3
 
 **Changed**
