@@ -161,7 +161,7 @@ Default value: `'0400'`
 
 ##### `content`
 
-Data type: `Hash[String, Optional[Variant[String, Integer, Array[String]]]]`
+Data type: `Hash[String, Optional[Variant[String, Integer, Sensitive[String], Array[String]]]]`
 
 The properties to write to the file.
 
