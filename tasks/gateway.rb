@@ -5,6 +5,7 @@ require 'pathname'
 require 'timeout'
 require_relative '../../ruby_task_helper/files/task_helper.rb'
 
+# Executes a gateway action.
 class GatewayTask < TaskHelper
   def task(params)
     path = Pathname.new(params[:path])
@@ -38,17 +39,15 @@ class GatewayTask < TaskHelper
     Open3.popen2e(env, *cmd, chdir: chdir) do |_, output, wait_thread|
       begin
         Timeout.timeout(timeout) do
-          while line = output.gets do
-            puts line
-          end
+          puts output.gets until output.eof?
         end
       rescue Timeout::Error
-        Process.kill("KILL", wait_thread.pid)
+        Process.kill('KILL', wait_thread.pid)
       end
     end
   end
 end
 
-if __FILE__ == $0
+if $PROGRAM_NAME == __FILE__
   GatewayTask.run
 end

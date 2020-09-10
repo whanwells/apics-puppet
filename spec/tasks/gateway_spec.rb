@@ -26,7 +26,7 @@ describe GatewayTask do
 
     context 'when path is not a directory' do
       before(:each) do
-        allow_any_instance_of(Pathname).to receive(:directory?).and_return(false)
+        allow_any_instance_of(Pathname).to receive(:directory?).and_return(false) # rubocop:disable RSpec/AnyInstance
       end
 
       it 'raises an argument error' do
@@ -39,12 +39,12 @@ describe GatewayTask do
       let(:cmd) { ['/opt/installer/APIGateway', '-f', params[:file], '-a', params[:action]] }
 
       before(:each) do
-        allow_any_instance_of(Pathname).to receive(:directory?).and_return(true)
+        allow_any_instance_of(Pathname).to receive(:directory?).and_return(true) # rubocop:disable RSpec/AnyInstance
       end
 
       context 'with timeout undefined' do
         it 'executes the action with a 5 minute timeout' do
-          expect(task).to receive(:execute).with(env, cmd, params[:path], 300)
+          expect(task).to receive(:execute).with(env, cmd, params[:path], 300) # rubocop:disable RSpec/SubjectStub
           task.task(params)
         end
       end
@@ -53,7 +53,7 @@ describe GatewayTask do
         let(:params) { super().merge(timeout: 1) }
 
         it 'executes the action with the defined timeout' do
-          expect(task).to receive(:execute).with(env, cmd, params[:path], 1)
+          expect(task).to receive(:execute).with(env, cmd, params[:path], 1) # rubocop:disable RSpec/SubjectStub
           task.task(params)
         end
       end
@@ -63,7 +63,7 @@ describe GatewayTask do
         let(:cmd) { super() + ['-l', 'ERROR'] }
 
         it 'upcases the loglevel' do
-          expect(task).to receive(:execute).with(env, cmd, params[:path], 300)
+          expect(task).to receive(:execute).with(env, cmd, params[:path], 300) # rubocop:disable RSpec/SubjectStub
           task.task(params)
         end
       end
@@ -73,7 +73,7 @@ describe GatewayTask do
         let(:cmd) { super() + ['-kv', 'foo=bar', 'baz=qux'] }
 
         it 'passes the key value pairs' do
-          expect(task).to receive(:execute).with(env, cmd, params[:path], 300)
+          expect(task).to receive(:execute).with(env, cmd, params[:path], 300) # rubocop:disable RSpec/SubjectStub
           task.task(params)
         end
       end
