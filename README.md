@@ -56,10 +56,10 @@ apics::gateway_props { '/opt/installer/gateway-props.json':
 
 ### Executing gateway actions
 
-Use the `apics::gateway` task to execute gateway actions.
+Use the `apics::gateway` task to execute gateway actions on nodes.
 
 ```bash
-bolt task run apics::gateway java_home=/usr/java/default path=/opt/installer file=gateway-props.json action=status
+bolt task run apics::gateway --targets node1 java_home=/usr/java/default path=/opt/installer file=gateway-props.json action=status
 ```
 
 ## Reference
