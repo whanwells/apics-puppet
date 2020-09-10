@@ -4,6 +4,7 @@
 
 1. [Description](#description)
 1. [Setup - The basics of getting started with apics](#setup)
+    * [Setup requirements](#setup-requirements)
     * [Beginning with apics](#beginning-with-apics)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Limitations - OS compatibility, etc.](#limitations)
