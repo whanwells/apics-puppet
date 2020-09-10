@@ -35,12 +35,13 @@ define apics::gateway_props (
   String $group,
   Stdlib::Unixpath $path = $title,
   Stdlib::Filemode $mode = '0400',
-  Hash[String, Optional[Variant[String, Integer, Array[String]]]] $content = {}
+  Hash[String, Optional[Variant[String, Integer, Sensitive[String], Array[String]]]] $content = {}
 ) {
   $entries = $content.filter |$k, $v| { $v =~ NotUndef }.map |$k, $v| {
     $v ? {
-      Array   => [$k, $v],
-      default => [$k, String($v)]
+      Array     => [$k, $v],
+      Sensitive => [$k, unwrap($v)],
+      default   => [$k, String($v)],
     }
   }
 

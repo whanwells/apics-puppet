@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.7.0
+
+**Added**
+
+- `apics::gateway_props` `Sensitive` property value support
+
 ## Release 0.6.0
 
 **Added**
