@@ -203,19 +203,13 @@ The action to perform
 
 ##### `keyvalue`
 
-Data type: `Optional[Hash[String[1], Variant[String[1], Integer]]]`
+Data type: `Optional[Array[Pattern[/\A[^=]+=[^=]+\z/]]]`
 
-Additional properties to pass to the action
+Additional properties to pass to the action in the form `key=value`
 
 ##### `loglevel`
 
 Data type: `Optional[String[1]]`
 
 The log level
-
-##### `timeout`
-
-Data type: `Optional[Integer[1]]`
-
-The maximum time the command should take (in seconds)
 
