@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file.
 - Deadlock when starting a node
 - Handle optional task parameters with nil values
 
+**Changed**
+
+- Use an array instead of hash for the `apics::gateway` task `keyvalue` parameter
+
 **Removed**
 
 - `apics::gateway` task `timeout` parameter

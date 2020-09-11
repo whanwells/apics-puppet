@@ -21,8 +21,8 @@
       "type": "String[1]"
     },
     "keyvalue": {
-      "description": "Additional properties to pass to the action",
-      "type": "Optional[Hash[String[1], Variant[String[1], Integer]]]"
+      "description": "Additional properties to pass to the action in the form `key=value`",
+      "type": "Optional[Array[Pattern[/\\A[^=]+=[^=]+\\z/]]]"
     },
     "loglevel": {
       "description": "The log level",

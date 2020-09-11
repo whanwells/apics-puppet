@@ -79,10 +79,10 @@ describe GatewayTask do
       end
 
       context 'when keyvalue is not nil' do
-        let(:params) { super().merge(keyvalue: { foo: 'bar', baz: 'qux' }) }
+        let(:params) { super().merge(keyvalue: ['foo=bar']) }
 
         it 'passes the key value pairs' do
-          expect(Open3).to receive(:popen2e).with(env, *cmd, '-kv', 'foo=bar', 'baz=qux', chdir: '/opt/installer')
+          expect(Open3).to receive(:popen2e).with(env, *cmd, '-kv', 'foo=bar', chdir: '/opt/installer')
 
           task.task(params)
         end

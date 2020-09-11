@@ -21,10 +21,7 @@ class GatewayTask < TaskHelper
     end
 
     if params.key?(:keyvalue) && !params[:keyvalue].nil?
-      cmd << '-kv'
-      params[:keyvalue].each do |k, v|
-        cmd << "#{k}=#{v}"
-      end
+      cmd.push('-kv', *params[:keyvalue])
     end
 
     Open3.popen2e(env, *cmd, chdir: params[:path]) do |stdin, stdout_stderr, wait_thread|
