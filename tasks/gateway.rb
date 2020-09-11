@@ -2,7 +2,6 @@
 
 require 'open3'
 require 'pathname'
-require 'timeout'
 require_relative '../../ruby_task_helper/files/task_helper.rb'
 
 # Executes a gateway action.
@@ -28,22 +27,14 @@ class GatewayTask < TaskHelper
       end
     end
 
-    timeout = params.key?(:timeout) ? params[:timeout] : 300
-
-    execute(env, cmd, params[:path], timeout)
-  end
-
-  private
-
-  def execute(env, cmd, chdir, timeout)
-    Open3.popen2e(env, *cmd, chdir: chdir) do |_, output, wait_thread|
-      begin
-        Timeout.timeout(timeout) do
-          puts output.gets until output.eof?
-        end
-      rescue Timeout::Error
-        Process.kill('KILL', wait_thread.pid)
+    Open3.popen2e(env, *cmd, chdir: params[:path]) do |stdin, stdout_stderr, wait_thread|
+      Thread.new do
+        stdout_stderr.each { |line| puts line }
       end
+
+      stdin.close
+      wait_thread.join
+      nil
     end
   end
 end

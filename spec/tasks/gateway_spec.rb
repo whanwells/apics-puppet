@@ -35,45 +35,35 @@ describe GatewayTask do
     end
 
     context 'when path is a directory' do
-      let(:env) { { 'JAVA_HOME' => params[:java_home] } }
-      let(:cmd) { ['/opt/installer/APIGateway', '-f', params[:file], '-a', params[:action]] }
+      let(:env) { { 'JAVA_HOME' => '/usr/java/default' } }
+      let(:cmd) { ['/opt/installer/APIGateway', '-f', 'gateway-props.json', '-a', 'install'] }
 
       before(:each) do
         allow_any_instance_of(Pathname).to receive(:directory?).and_return(true) # rubocop:disable RSpec/AnyInstance
       end
 
-      context 'with timeout undefined' do
-        it 'executes the action with a 5 minute timeout' do
-          expect(task).to receive(:execute).with(env, cmd, params[:path], 300) # rubocop:disable RSpec/SubjectStub
-          task.task(params)
-        end
-      end
+      it 'executes the gateway action' do
+        expect(Open3).to receive(:popen2e).with(env, *cmd, chdir: '/opt/installer')
 
-      context 'with timeout undefined' do
-        let(:params) { super().merge(timeout: 1) }
-
-        it 'executes the action with the defined timeout' do
-          expect(task).to receive(:execute).with(env, cmd, params[:path], 1) # rubocop:disable RSpec/SubjectStub
-          task.task(params)
-        end
+        task.task(params)
       end
 
       context 'with loglevel defined' do
         let(:params) { super().merge(loglevel: 'error') }
-        let(:cmd) { super() + ['-l', 'ERROR'] }
 
         it 'upcases the loglevel' do
-          expect(task).to receive(:execute).with(env, cmd, params[:path], 300) # rubocop:disable RSpec/SubjectStub
+          expect(Open3).to receive(:popen2e).with(env, *cmd, '-l', 'ERROR', chdir: '/opt/installer')
+
           task.task(params)
         end
       end
 
       context 'with keyvalue defined' do
         let(:params) { super().merge(keyvalue: { foo: 'bar', baz: 'qux' }) }
-        let(:cmd) { super() + ['-kv', 'foo=bar', 'baz=qux'] }
 
         it 'passes the key value pairs' do
-          expect(task).to receive(:execute).with(env, cmd, params[:path], 300) # rubocop:disable RSpec/SubjectStub
+          expect(Open3).to receive(:popen2e).with(env, *cmd, '-kv', 'foo=bar', 'baz=qux', chdir: '/opt/installer')
+
           task.task(params)
         end
       end

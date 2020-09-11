@@ -27,11 +27,6 @@
     "loglevel": {
       "description": "The log level",
       "type": "Optional[String[1]]"
-    },
-    "timeout": {
-      "description": "The maximum time the command should take (in seconds)",
-      "type": "Optional[Integer[1]]",
-      "default": 300
     }
   },
   "files": [

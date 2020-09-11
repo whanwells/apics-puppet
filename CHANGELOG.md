@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+**Fixed**
+
+- Deadlock when starting a node using the `apics::gateway` task
+
+**Removed**
+
+- Timeout `apics::gateway` task parameter
+
 ## Release 0.7.0
 
 **Added**
