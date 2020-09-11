@@ -6,12 +6,12 @@ All notable changes to this project will be documented in this file.
 
 **Fixed**
 
-- Deadlock when starting a node using the `apics::gateway` task
+- Deadlock when starting a node
 - Handle optional task parameters with nil values
 
 **Removed**
 
-- Timeout `apics::gateway` task parameter
+- `apics::gateway` task `timeout` parameter
 
 ## Release 0.7.0
 
