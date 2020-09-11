@@ -2,7 +2,7 @@
   "name": "whanwells-apics",
   "version": "0.7.0",
   "author": "William Wells",
-  "summary": "Installs and configures an Oracle API Platform gateway node.",
+  "summary": "Manages Oracle API Platform gateway nodes.",
   "license": "Apache-2.0",
   "source": "https://github.com/whanwells/apics-puppet",
   "project_page": "https://github.com/whanwells/apics-puppet",
