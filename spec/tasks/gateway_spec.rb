@@ -48,17 +48,37 @@ describe GatewayTask do
         task.task(params)
       end
 
-      context 'with loglevel defined' do
+      context 'when loglevel is nil' do
+        let(:params) { super().merge(loglevel: nil) }
+
+        it 'does not pass a loglevel' do
+          expect(Open3).to receive(:popen2e).with(env, *cmd, chdir: '/opt/installer')
+
+          task.task(params)
+        end
+      end
+
+      context 'with loglevel is not nil' do
         let(:params) { super().merge(loglevel: 'error') }
 
-        it 'upcases the loglevel' do
+        it 'passes the upcased loglevel' do
           expect(Open3).to receive(:popen2e).with(env, *cmd, '-l', 'ERROR', chdir: '/opt/installer')
 
           task.task(params)
         end
       end
 
-      context 'with keyvalue defined' do
+      context 'when keyvalue is nil' do
+        let(:params) { super().merge(keyvalue: nil) }
+
+        it 'does not pass a keyvalue' do
+          expect(Open3).to receive(:popen2e).with(env, *cmd, chdir: '/opt/installer')
+
+          task.task(params)
+        end
+      end
+
+      context 'when keyvalue is not nil' do
         let(:params) { super().merge(keyvalue: { foo: 'bar', baz: 'qux' }) }
 
         it 'passes the key value pairs' do

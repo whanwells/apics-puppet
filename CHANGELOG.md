@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 **Fixed**
 
 - Deadlock when starting a node using the `apics::gateway` task
+- Handle optional task parameters with nil values
 
 **Removed**
 

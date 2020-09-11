@@ -15,12 +15,12 @@ class GatewayTask < TaskHelper
     env = { 'JAVA_HOME' => params[:java_home] }
     cmd = [File.join(params[:path], 'APIGateway'), '-f', params[:file], '-a', params[:action]]
 
-    if params.key?(:loglevel)
+    if params.key?(:loglevel) && !params[:loglevel].nil?
       cmd << '-l'
       cmd << params[:loglevel].upcase
     end
 
-    if params.key?(:keyvalue)
+    if params.key?(:keyvalue) && !params[:keyvalue].nil?
       cmd << '-kv'
       params[:keyvalue].each do |k, v|
         cmd << "#{k}=#{v}"
